@@ -1,0 +1,119 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #1ec5f3;
+  
+    
+  }
+  
+.header {
+    background-color: #1ec5f3;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 30px;
+    margin-top: 25px;
+    
+  }
+  
+.user-info {
+    display: flex;
+    align-items: center;
+  }
+  
+.user-icon {
+  width: 100px;
+  height: 100px;
+  border-radius: 30%;
+  background-image: url('../Images/Logo\ DiveRank.png');
+  background-size: 160%;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  }
+  
+.user-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+.username {
+    font-size: 30px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    margin-left: 30px;
+  }
+  
+.separator {
+    width: 100%;
+    border: none;
+    border-top: 1px solid white;
+    margin: 4px 0;
+    margin-left: 20px;
+  }
+  
+.role {
+    font-size: 25px;
+    font-weight: 500;
+    margin-left: 70px;
+     
+  }
+  
+
+.home-icon img {
+    width: 70px;         
+    display: block;        
+    margin: 10px;         
+   
+  }
+  
+.home-icon img:hover {
+    transform: scale(1.1); 
+  }
+
+.titulo{
+    font-size: 1rem;
+    font-weight: 500;
+    margin-left: 39%;
+    margin-top: 5%;
+    color: white;
+}
+
+.nombre{
+  margin-top: 15px;
+  margin-left: 280px;
+  min-height: 40px;
+  max-width: 150px;
+  position: fixed;
+  font-style: oblique;
+}
+
+.contenedorDificultad{
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2%;
+    margin-left: 20%;
+    margin-right: 20%;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: white;
+}
+
+.tabla-competidor{
+  width: 75%;
+  border-collapse: collapse;
+  margin-top: -215px;
+  margin-left: 115px;
+  margin-right: 100px;
+  background-color: tomato;
+}
+
+.guardar{
+  position: fixed;
+  margin-top: 0%;
+  margin-left: 50%;
+}

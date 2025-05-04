@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VentanaOrganizador</title>
+  <link rel="stylesheet" href="CSS/Ventana1Organizador.css" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="user-info">
+      <div class="user-icon"></div>
+      <div class="user-details">
+        <div class="username" id="username"></div>
+        <div class="role" id="role"></div>
+
+
+
+      </div>
+    </div>
+    <div class="home-icon">
+      <a href="login.html" class="home-icon" role="button" aria-label="Ir al inicio">
+        <img src="Images/home.png" alt="Inicio">
+      </a>
+    </div>
+  </header>
+
+  <div class="botones-menuderecho">
+    <div class="boton">
+      <img src="Images/Resultados generales.png" alt="Resultados generales">
+      <p>Resultados generales</p>
+    </div>
+    <div class="boton">
+      <img src="Images/Descalificar.png" alt="Descalificar">
+      <p>Descalificar</p>
+    </div>
+  </div>
+
+  <section>
+
+    <div class="Registro-container">
+      <h2 class="titulo">Registro de Compertidores</h2>
+      <img src="Images/Warning.webp" alt="advertencia" class="advertencia-icon">
+      <p class="advertencia-text">Recuerde que el orden en el que ingrese a los participantes debe ser el orden en el
+        que van a competir, de primer a ultimo competidor.</p>
+
+      <div class="nombre-competidor">
+        <label for="nombre">Nombre del competidor:</label>
+      </div>
+      <div class="nombre-input">
+        <input type="text" id="nombre" placeholder="Nombre del competidor">
+      </div>
+
+      <div class="numero-saltos">
+        <label for="saltos">Número de saltos:</label>
+      </div>
+
+      <div class="saltos-input">
+        <input type="number" id="saltos" placeholder="Número de saltos">
+
+      </div>
+
+      <div class="boton-competidor">
+        <input type="image" id="agregar-competidor" src="Images/Agregar.png" class="agregar-competidor">
+      </div>
+
+      <p class="competidores-text">Lista de competidores </p>
+
+      <div class="competidores-lista">
+      </div>
+
+      <table id="tabla-competidores" class="tabla-competidores">
+        <thead>
+          <tr>
+            <th>Orden</th>
+            <th>Nombre</th>
+            <th>Nº Saltos</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+
+  </section>
+
+  <script src="js/Ventana1Oranizador.js"></script>
+    
+</body>
