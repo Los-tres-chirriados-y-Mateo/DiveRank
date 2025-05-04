@@ -1,0 +1,44 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DiveRank - Login</title>
+  <link rel="stylesheet" href="CSS/login.css">
+</head>
+<body>
+  <div class="logo"></div>
+  <div class="login-box">
+    <label for="userType">Usted es:</label>
+    <select id="userType">
+      <option value="">Seleccione...</option>
+      <option value="admin">Juez</option>
+      <option value="usuario">Organizador</option>
+    </select>
+    <label for="credencial">Credencial:</label>
+    <input type="password" id="credencial">
+
+    <button class="btn-ingresar">INGRESAR</button>
+    <div class="note">
+      Si tiene problemas para recordar su usuario o contraseña, contacte a su administrador
+    </div>
+  </div>
+
+  <button class="public-btn">PUBLICO</button>
+  <button class="admin-btn" id="admin-btn">Administrador</button>
+
+  <dialog class="adminModal" id="adminModal">
+
+    <form id="adminForm" method="dialog">
+      <input type="text" id="admin-credencial" placeholder="CREDENCIAL">
+      <button class="btn-ingresar" id="admin-login">INGRESAR</button>
+      <br></br>
+      <button class="btn-ingresar" id="admin-cancel">CANCELAR</button>
+    </form>
+
+  </dialog>
+
+  <script src="JS/login.js"></script>
+</body>
+</html>
