@@ -9,9 +9,8 @@ class AdminLoginView(APIView):
     def post(self, request):
         serializer = AdminLoginSerializer(data=request.data)
         if serializer.is_valid():
-            nombre = serializer.validated_data['nombre']
             password = serializer.validated_data['password']
-            admin = Admin.objects(nombre=nombre, password=password).first()
+            admin = Admin.objects(password=password).first()
             if admin:
                 return Response({"mensaje": "Inicio de sesión exitoso como admin"}, status=200)
             return Response({"error": "Credenciales inválidas"}, status=401)
@@ -159,7 +158,13 @@ class VerSaltosDeportistaView(APIView):
         except Deportista.DoesNotExist:
             return Response({"error": "Deportista no encontrado"}, status=404)
 
-        return Response({"nombre": deportista.nombre, "saltos": deportista.saltos}, status=200)
+        saltos = [{"nombre": s.nombre, "dificultad": s.dificultad} for s in deportista.saltos]
+
+        return Response({
+            "nombre": deportista.nombre,
+            "saltos": saltos
+        }, status=200)
+
 
 class AgregarSaltoDeportistaView(APIView):
     def post(self, request, deportista_id):
@@ -168,14 +173,18 @@ class AgregarSaltoDeportistaView(APIView):
         except Deportista.DoesNotExist:
             return Response({"error": "Deportista no encontrado"}, status=404)
 
-        salto = request.data.get('salto')
-        if not salto:
-            return Response({"error": "Debe proporcionar un salto"}, status=400)
+        nombre = request.data.get('nombre', "")
+        dificultad = request.data.get('dificultad', 0.0)
 
+        salto = Salto(nombre=nombre, dificultad=float(dificultad))
         deportista.saltos.append(salto)
         deportista.save()
 
-        return Response({"mensaje": "Salto agregado correctamente", "saltos": deportista.saltos}, status=200)
+        return Response({
+            "mensaje": "Salto agregado correctamente",
+            "saltos": [{"nombre": s.nombre, "dificultad": s.dificultad} for s in deportista.saltos]
+        }, status=200)
+
 
 class EditarSaltoDeportistaView(APIView):
     def put(self, request, deportista_id, salto_index):
@@ -187,14 +196,24 @@ class EditarSaltoDeportistaView(APIView):
         if salto_index < 0 or salto_index >= len(deportista.saltos):
             return Response({"error": "Índice de salto inválido"}, status=400)
 
-        nuevo_salto = request.data.get('nuevo_salto')
-        if not nuevo_salto:
-            return Response({"error": "Debe proporcionar el nuevo salto"}, status=400)
+        nombre = request.data.get('nombre')
+        dificultad = request.data.get('dificultad')
 
-        deportista.saltos[salto_index] = nuevo_salto
+        if nombre is not None:
+            deportista.saltos[salto_index].nombre = nombre
+        if dificultad is not None:
+            deportista.saltos[salto_index].dificultad = float(dificultad)
+
         deportista.save()
 
-        return Response({"mensaje": "Salto actualizado correctamente", "saltos": deportista.saltos}, status=200)
+        return Response({
+            "mensaje": "Salto actualizado correctamente",
+            "salto": {
+                "nombre": deportista.saltos[salto_index].nombre,
+                "dificultad": deportista.saltos[salto_index].dificultad
+            }
+        }, status=200)
+
 
 
 class EliminarSaltoDeportistaView(APIView):
@@ -223,7 +242,10 @@ class CrearDeportistasView(APIView):
         for d in deportistas_data:
             nombre = d.get('nombre')
             edad = d.get('edad')
-            saltos = d.get('saltos', [])
+            num_saltos = d.get('num_saltos')
+            if num_saltos is None:
+                return Response({"error": "Se requiere 'num_saltos'"}, status=400)
+            saltos = [Salto(nombre="", dificultad=0.0) for _ in range(num_saltos)]
 
             if not nombre or not edad:
                 return Response({"error": "Cada deportista debe tener nombre y edad"}, status=400)
@@ -308,13 +330,14 @@ class CrearJuezView(APIView):
         serializer = CrearJuezSerializer(data=request.data)
         if serializer.is_valid():
             nombre = serializer.validated_data['nombre']
+            cedula = serializer.validated_data['cedula']
             competencia_id = serializer.validated_data['competencia_id']
 
             if Jurado.objects(nombre=nombre).first():
                 return Response({"error": "Ya existe un juez con ese nombre"}, status=400)
 
-            password = secrets.token_hex(8) #Creacion automatica de password unica
-            juez = Jurado(nombre=nombre, password=password)
+            password = serializer.validated_data['password']
+            juez = Jurado(nombre=nombre, password=password, cedula=cedula)
             juez.save()
 
             # Vincular de una ves con la competencia
@@ -328,7 +351,7 @@ class CrearJuezView(APIView):
             return Response({
                 "mensaje": "Juez creado y vinculado exitosamente",
                 "nombre": nombre,
-                "password": password #devolvemos la pasword generada
+                "cedula": cedula,
             }, status=201)
 
         return Response(serializer.errors, status=400)
@@ -338,13 +361,14 @@ class CrearOrganizadorView(APIView):
         serializer = CrearOrganizadorSerializer(data=request.data)
         if serializer.is_valid():
             nombre = serializer.validated_data['nombre']
+            cedula = serializer.validated_data['cedula']
             competencia_id = serializer.validated_data['competencia_id']
 
             if Organizador.objects(nombre=nombre).first():
                 return Response({"error": "Ya existe un organizador con ese nombre"}, status=400)
 
-            password = secrets.token_hex(8) #Creacion automatica de password unica
-            organizador = Organizador(nombre=nombre, password=password)
+            password = serializer.validated_data['password']
+            organizador = Organizador(nombre=nombre, password=password, cedula=cedula)
             organizador.save()
 
             # Vincular de una ves con la competencia
@@ -358,7 +382,7 @@ class CrearOrganizadorView(APIView):
             return Response({
                 "mensaje": "Organizador creado y vinculado exitosamente",
                 "nombre": nombre,
-                "password": password #devolvemos la pasword generada
+                "cedula": cedula,
             }, status=201)
 
         return Response(serializer.errors, status=400)

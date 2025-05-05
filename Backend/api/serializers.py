@@ -12,31 +12,40 @@ class JuradoSerializer(serializers.Serializer):
     id = serializers.CharField(read_only=True)
     nombre = serializers.CharField()
     password = serializers.CharField()
+    cedula = serializers.CharField()
 
 class CrearJuezSerializer(serializers.Serializer):
     nombre = serializers.CharField()
+    cedula = serializers.CharField()
+    password = serializers.CharField() 
     competencia_id = serializers.CharField()
-
 
 class OrganizadorSerializer(serializers.Serializer):
     id = serializers.CharField(read_only=True)
     nombre = serializers.CharField()
     password = serializers.CharField()
+    cedula = serializers.CharField()
 
 class CrearOrganizadorSerializer(serializers.Serializer):
     nombre = serializers.CharField()
+    cedula = serializers.CharField()
+    password = serializers.CharField() 
     competencia_id = serializers.CharField()
+
+class SaltoSerializer(serializers.Serializer):
+    nombre = serializers.CharField()
+    dificultad = serializers.FloatField()
 
 class DeportistaSerializer(serializers.Serializer):
     id = serializers.CharField(read_only=True)
     nombre = serializers.CharField()
     edad = serializers.IntegerField()
-    saltos = serializers.ListField()
+    saltos = SaltoSerializer(many=True)
 
 class DeportistaCrearSerializer(serializers.Serializer):
     nombre = serializers.CharField()
     edad = serializers.IntegerField()
-    saltos = serializers.ListField(child=serializers.CharField(), required=False)
+    num_saltos = serializers.IntegerField()
 
 
 #Este es para leer
@@ -60,7 +69,6 @@ class CrearCompetenciaSerializer(serializers.Serializer):
 
 
 class AdminLoginSerializer(serializers.Serializer):
-    nombre = serializers.CharField()
     password = serializers.CharField()
 
 class RolLoginSerializer(serializers.Serializer):
