@@ -74,3 +74,11 @@ class AdminLoginSerializer(serializers.Serializer):
 class RolLoginSerializer(serializers.Serializer):
     rol = serializers.ChoiceField(choices=['jurado', 'organizador'])
     password = serializers.CharField()
+
+class PuntuacionSerializer(serializers.Serializer):
+    juezId = serializers.CharField()
+    puntaje = serializers.FloatField(min_value=0.0, max_value=10.0)
+
+class PuntajeSaltoSerializer(serializers.Serializer):
+    deportistaId = serializers.CharField()
+    puntuaciones = serializers.ListField(child=PuntuacionSerializer())

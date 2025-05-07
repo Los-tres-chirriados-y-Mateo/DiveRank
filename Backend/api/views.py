@@ -2,8 +2,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Admin, Jurado, Organizador, Competencia, Deportista
-from .serializers import AdminLoginSerializer, RolLoginSerializer, CrearCompetenciaSerializer, CrearJuezSerializer, CrearOrganizadorSerializer, DeportistaCrearSerializer
+from .models import Admin, Jurado, Organizador, Competencia, Deportista, Salto, Puntuacion, PuntajeSalto
+from .serializers import AdminLoginSerializer, RolLoginSerializer, CrearCompetenciaSerializer, CrearJuezSerializer, CrearOrganizadorSerializer, DeportistaCrearSerializer, PuntajeSaltoSerializer, PuntuacionSerializer
 
 class AdminLoginView(APIView):
     def post(self, request):
@@ -457,3 +457,25 @@ class BuscarDeportistaView(APIView):
             }, status=200)
         else:
             return Response({"error": "Deportista no encontrado"}, status=404)
+        
+class RegistrarPuntuaciónView(APIView):
+    def post(self, request):
+        serializer = PuntajeSaltoSerializer(data=request.data)
+        if serializer.is_valid():
+            deportistaId = serializer.validated_data['deportistaId']
+            datosPuntajes = serializer.validated_data['puntuaciones']
+            deportista = Deportista.objects.get(id=deportistaId)
+            if not deportista:
+                return Response({"error": "Deportista no encontrado"}, status=404)
+            puntuaciones=[]
+            for j in datosPuntajes:
+                juez = Jurado.objects.get(id=j['juezId'])
+                if not juez:
+                    return Response({"error": "Juez no encontrado"}, status=404)
+                puntuacion = Puntuacion(juez=juez, puntaje=j['puntaje'])
+                puntuaciones.append(puntuacion)
+            puntajeSalto = PuntajeSalto(deportista=deportista, puntajes=puntuaciones)
+            puntajeSalto.promedio()
+            puntajeSalto.save()
+            return Response({"mensaje": "Puntuación registrada correctamente"}, status=201)
+        return Response(serializer.errors, status=400)

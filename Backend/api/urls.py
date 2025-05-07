@@ -14,7 +14,8 @@ from .views import (
     CrearOrganizadorView,
     BuscarJuezView,
     BuscarOrganizadorView,
-    BuscarDeportistaView,    
+    BuscarDeportistaView,
+    RegistrarPuntuaciónView,    
 )
 
 urlpatterns = [
@@ -24,6 +25,8 @@ urlpatterns = [
     path('crear_competencia/', CrearCompetenciaView.as_view(), name='crear_competencia'),
     path('eliminar_competencia/<str:competencia_id>/', EliminarCompetenciaView.as_view(), name='eliminar_competencia'),
     path('lista_competencias/', ListaCompetenciasView.as_view(), name='lista_competencias'),
+
+    path('registrar_puntuacion/', RegistrarPuntuaciónView.as_view(), name='registrar_puntuacion'),
 
     path('crear_deportistas/', CrearDeportistasView.as_view(), name='crear_deportistas'),
     path('editar_deportista/<str:deportista_id>/', EditarDeportistaView.as_view(), name='editar_deportista'),
