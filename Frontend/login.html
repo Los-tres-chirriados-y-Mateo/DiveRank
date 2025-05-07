@@ -13,13 +13,13 @@
     <label for="userType">Usted es:</label>
     <select id="userType">
       <option value="">Seleccione...</option>
-      <option value="admin">Juez</option>
-      <option value="usuario">Organizador</option>
+      <option value="jurado">Juez</option>
+      <option value="organizador">Organizador</option>
     </select>
     <label for="credencial">Credencial:</label>
     <input type="password" id="credencial">
 
-    <button class="btn-ingresar">INGRESAR</button>
+    <button class="btn-ingresar" id="btn-ingresar">INGRESAR</button>
     <div class="note">
       Si tiene problemas para recordar su usuario o contraseña, contacte a su administrador
     </div>
@@ -31,7 +31,7 @@
   <dialog class="adminModal" id="adminModal">
 
     <form id="adminForm" method="dialog">
-      <input type="text" id="admin-credencial" placeholder="CREDENCIAL">
+      <input type="password" id="admin-credencial" placeholder="CREDENCIAL">
       <button class="btn-ingresar" id="admin-login">INGRESAR</button>
       <br></br>
       <button class="btn-ingresar" id="admin-cancel">CANCELAR</button>
