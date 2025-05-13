@@ -291,9 +291,9 @@ class EliminarDeportistaView(APIView):
         return Response({"mensaje": "Deportista eliminado correctamente"}, status=200)
 
 class EliminarOrganizadorView(APIView):
-    def delete(self, request, organizador_id):
+    def delete(self, request, nombre):
         try:
-            organizador = Organizador.objects.get(id=organizador_id)
+            organizador = Organizador.objects.get(nombre=nombre)
         except Organizador.DoesNotExist:
             return Response({"error": "Organizador no encontrado"}, status=404)
 
@@ -302,9 +302,9 @@ class EliminarOrganizadorView(APIView):
         return Response({"mensaje": "Organizador eliminado correctamente"}, status=200)
 
 class EliminarJuezView(APIView):
-    def delete(self, request, juez_id):
+    def delete(self, request, nombre):
         try:
-            juez = Jurado.objects.get(id=juez_id)
+            juez = Jurado.objects.get(nombre=nombre)
         except Jurado.DoesNotExist:
             return Response({"error": "Juez no encontrado"}, status=404)
 
@@ -331,7 +331,7 @@ class CrearJuezView(APIView):
         if serializer.is_valid():
             nombre = serializer.validated_data['nombre']
             cedula = serializer.validated_data['cedula']
-            competencia_id = serializer.validated_data['competencia_id']
+
 
             if Jurado.objects(nombre=nombre).first():
                 return Response({"error": "Ya existe un juez con ese nombre"}, status=400)
@@ -340,13 +340,8 @@ class CrearJuezView(APIView):
             juez = Jurado(nombre=nombre, password=password, cedula=cedula)
             juez.save()
 
-            # Vincular de una ves con la competencia
-            competencia = Competencia.objects(id=competencia_id).first()
-            if not competencia:
-                return Response({"error": "Competencia no encontrada"}, status=404)
-
-            competencia.jueces.append(juez)
-            competencia.save()
+          
+            
 
             return Response({
                 "mensaje": "Juez creado y vinculado exitosamente",
@@ -362,7 +357,7 @@ class CrearOrganizadorView(APIView):
         if serializer.is_valid():
             nombre = serializer.validated_data['nombre']
             cedula = serializer.validated_data['cedula']
-            competencia_id = serializer.validated_data['competencia_id']
+            
 
             if Organizador.objects(nombre=nombre).first():
                 return Response({"error": "Ya existe un organizador con ese nombre"}, status=400)
@@ -371,13 +366,7 @@ class CrearOrganizadorView(APIView):
             organizador = Organizador(nombre=nombre, password=password, cedula=cedula)
             organizador.save()
 
-            # Vincular de una ves con la competencia
-            competencia = Competencia.objects(id=competencia_id).first()
-            if not competencia:
-                return Response({"error": "Competencia no encontrada"}, status=404)
 
-            competencia.organizadores.append(organizador)
-            competencia.save()
 
             return Response({
                 "mensaje": "Organizador creado y vinculado exitosamente",
@@ -388,7 +377,7 @@ class CrearOrganizadorView(APIView):
         return Response(serializer.errors, status=400)
 
 class BuscarJuezView(APIView):
-    def post(self, request):
+    def get(self, request):
         nombre = request.data.get('nombre')
         password = request.data.get('password')
 
@@ -412,7 +401,7 @@ class BuscarJuezView(APIView):
 
 
 class BuscarOrganizadorView(APIView):
-    def post(self, request):
+    def get(self, request):
         nombre = request.data.get('nombre')
         password = request.data.get('password')
 
@@ -433,6 +422,30 @@ class BuscarOrganizadorView(APIView):
             }, status=200)
         else:
             return Response({"error": "Organizador no encontrado"}, status=404)
+        
+class ListaOrganizadoresView(APIView):
+    def get(self, request):
+        organizadores = Organizador.objects.all()
+        datos = [
+            {
+                "nombre": o.nombre,
+                "cedula": o.cedula,
+                "password": o.password
+            } for o in organizadores
+        ]
+        return Response(datos, status=200)
+    
+class ListaJuecesView(APIView):
+    def get(self, request):
+        jueces = Jurado.objects.all()
+        datos = [
+            {
+                "nombre": o.nombre,
+                "cedula": o.cedula,
+                "password": o.password
+            } for o in jueces
+        ]
+        return Response(datos, status=200)
 
 class BuscarDeportistaView(APIView):
     def post(self, request):
@@ -474,8 +487,10 @@ class RegistrarPuntuaciónView(APIView):
                     return Response({"error": "Juez no encontrado"}, status=404)
                 puntuacion = Puntuacion(juez=juez, puntaje=j['puntaje'])
                 puntuaciones.append(puntuacion)
-            puntajeSalto = PuntajeSalto(deportista=deportista, puntajes=puntuaciones)
-            puntajeSalto.promedio()
+            numeroSaltosPrevios = PuntajeSalto.objects(deportista=deportista).count()
+            puntajeSalto = PuntajeSalto(deportista=deportista, numeroSalto=numeroSaltosPrevios+1, puntajes=puntuaciones)
+            puntajeSalto.calcular_promedio()
             puntajeSalto.save()
+
             return Response({"mensaje": "Puntuación registrada correctamente"}, status=201)
         return Response(serializer.errors, status=400)

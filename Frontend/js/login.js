@@ -30,9 +30,13 @@ loginbtn.addEventListener("click", function (e) {
     
     .then(res => {
         if (res.status === 200){
-            alert("Credenciales correctas, redirigiendo a la página de administración...");
+            dialog.reset();
+            adminModal.close();
+            window.location.href = "./VentanaAdmin.html"; 
         } else {
             alert("Credenciales incorrectas");
+            dialog.reset();
+            adminModal.close();
         }
     })
     .catch(error => {
@@ -60,7 +64,18 @@ ingresar.addEventListener("click", function (e) {
     
     .then(res => {
         if (res.status === 200){
-            alert("Credenciales correctas, redirigiendo a la página de administración...");
+            console.log(rol);
+            switch (rol) {
+                case "jurado":
+                    console.log("Iniciando como juez");
+                    window.location.href = ""; // Poner la dirección de la ventana del juez cuandos se haga
+                    break;
+                case "organizador":
+                    console.log("Iniciaindo como organizador");
+                    window.location.href = "./Ventana1Organizador.html";
+                    break;
+            }
+            
         } else {
             alert("Credenciales incorrectas");
         }

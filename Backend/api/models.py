@@ -31,6 +31,7 @@ class Organizador(me.Document):
     nombre = me.StringField(required=True)
     password = me.StringField(required=True, unique=True)
     cedula = me.StringField(required=True, unique=True)
+    
 
     meta = {'collection': 'organizadores'}
 
@@ -40,16 +41,18 @@ class Puntuacion(me.EmbeddedDocument):
 
 class PuntajeSalto(me.Document):
     deportista = me.ReferenceField(Deportista, required=True)
+    numeroSalto = me.IntField(required = False)
     puntajes = me.EmbeddedDocumentListField(Puntuacion, default=[])
     promedio= me.FloatField(default=0.0)
-    def promedio(self):
+    def calcular_promedio(self):
         """Calcula el promedio de los puntajes del salto."""
         if len(self.puntajes) < 3:
             raise ValueError("Se requieren al menos 3 puntajes para calcular el promedio.")
         puntajes = sorted([p.puntaje for p in self.puntajes])
         mitad = len(puntajes)//2
         selecteds = puntajes[mitad-1:mitad+2]  # Selecciona los 3 puntajes centrales
-        self.promedio = sum(selecteds)/3  
+        self.promedio = sum(selecteds)/3
+        self.save()
         
     meta = {'collection': 'puntajes_saltos'}
 

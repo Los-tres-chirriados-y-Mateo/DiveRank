@@ -16,6 +16,8 @@ from .views import (
     BuscarOrganizadorView,
     BuscarDeportistaView,
     RegistrarPuntuaciónView,    
+    ListaOrganizadoresView,
+    ListaJuecesView,
 )
 
 urlpatterns = [
@@ -31,12 +33,14 @@ urlpatterns = [
     path('crear_deportistas/', CrearDeportistasView.as_view(), name='crear_deportistas'),
     path('editar_deportista/<str:deportista_id>/', EditarDeportistaView.as_view(), name='editar_deportista'),
     path('eliminar_deportista/<str:deportista_id>/', EliminarDeportistaView.as_view(), name='eliminar_deportista'),
-    path('eliminar_juez/<str:juez_id>/', EliminarJuezView.as_view(), name='eliminar_juez'),
-    path('eliminar_organizador/<str:organizador_id>/', EliminarOrganizadorView.as_view(), name='eliminar_organizador'),
+    path('eliminar_juez/<str:nombre>/', EliminarJuezView.as_view(), name='eliminar_juez'),
+    path('eliminar_organizador/<str:nombre>/', EliminarOrganizadorView.as_view(), name='eliminar_organizador'),
     path('crear_juez/', CrearJuezView.as_view(), name='crear_juez'),
     path('crear_organizador/', CrearOrganizadorView.as_view(), name='crear_organizador'),
     path('buscar_juez/', BuscarJuezView.as_view(), name='buscar_juez'),
     path('buscar_organizador/', BuscarOrganizadorView.as_view(), name='buscar_organizador'),
     path('buscar_deportista/', BuscarDeportistaView.as_view(), name='buscar_deportista'),
+    path("listar_organizadores/", ListaOrganizadoresView.as_view(), name="listar_organizadores"),
+    path("listar_jueces/", ListaJuecesView.as_view(), name="listar_jueces"),
 ]
 
