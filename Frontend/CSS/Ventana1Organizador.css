@@ -42,8 +42,8 @@ body {
   .username {
     font-size: 30px;
     font-weight: 500;
-    margin-bottom: 10px;
-    margin-left: 30px;
+    margin-bottom: -20px;
+    margin-left: 50px;
   }
   
   .separator {
@@ -55,7 +55,7 @@ body {
   }
   
   .role {
-    font-size: 25px;
+    font-size: 10px;
     font-weight: 500;
     margin-left: 70px;
      
@@ -107,6 +107,7 @@ body {
   }
 
   .Registro-container {
+    position: relative;
     background: #f7bfd8;
     padding: 1rem;
     border-radius: 1rem;
@@ -207,37 +208,24 @@ body {
    margin-left: 380px;
   }
 
-  .tabla-competidores{
-    width: 75%;
-    border-collapse: collapse;
-    margin-top: -215px;
-    margin-left: 115px;
-    margin-right: 100px;
-    text-align: center;
-  }
-
-  .competidores-lista{
+  .competidores-lista {
+    overflow-y: auto;
+    position: relative;
     background: #ffffff;
-    padding: rem;
+    padding: 1rem;  /* Corregido el valor de padding */
     border-radius: 1rem;
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    width: 760px;
-    height: 220px;
-    margin-left:100px;
-    margin-right: 100px;
-    max-width: 150%;
-  
+    width: 760px;  /* Ancho fijo para el contenedor */
+    height: 180px;  /* Altura fija */
+    margin-left: 80px;
+    margin-top: 0px;
+}
 
-  }
-
-  table {
-    width: 65%;
-    border-collapse: separate;
-    border-spacing: 0 10px;
-    margin-top: -220px;
-    margin-left:120px;
-    
-  }
+.tabla-competidores {
+    position: absolute;
+    width: 95%;
+    text-align: center;
+}
   
   th {
     background-color: #1e3a8a;

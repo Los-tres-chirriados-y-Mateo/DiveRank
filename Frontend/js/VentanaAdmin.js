@@ -2,9 +2,60 @@ const btnAbrirModal = document.querySelector("#openModalBtn");
 const modal = document.querySelector("#modal");
 const btnCrear = document.querySelector("#crear");
 const modalcreado = document.querySelector("#modalcreado");
+const password = localStorage.getItem("admin_password");
 
-setInterval(actualizarTablaOrganizadores, 1000);
-setInterval(actualizarTablaJueces, 1000);
+
+// Iniciamos cargando las tablas
+actualizarTablaJueces();
+actualizarTablaOrganizadores();
+
+function verCredencialJuez(nombre) {
+  fetch(`http://127.0.0.1:8000/ver_credencial_juez/${encodeURIComponent(nombre)}/`)
+  .then(res => res.json())
+  .then(data => {
+    console.log(data)
+    alert("La credencial para " + nombre + " es: " + data);
+  }
+
+  )
+}
+
+function verCredencialOrganizador(nombre) {
+  fetch(`http://127.0.0.1:8000/ver_credencial_organizador/${encodeURIComponent(nombre)}/`)
+  .then(res => res.json())
+  .then(data => {
+    console.log(data)
+    alert("La credencial para " + nombre + " es: " + data)
+  })
+}
+
+
+//Aquí se va a buscar el nombre del usuario por la credencial (Yo sé que no es seguro, pero no tenemos ningún otro dato del cliente xd)
+fetch("http://127.0.0.1:8000/buscar_administrador_por_credencial/",{
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    "credencial": password,
+  }),
+})
+.then(res => {
+  if (res.status === 200) {
+    return res.json();
+  } else {
+    throw new Error("Error obteniendo administrador");
+  }
+})
+.then(data => {
+  document.querySelector("#username").textContent = data.nombre;
+  console.log("Administrador encontrado:", data.nombre);
+})
+.catch(err => {
+  console.error("Error:", err);
+});
+
+
 
 
 function eliminarJuez(nombre) {
@@ -21,6 +72,7 @@ function eliminarJuez(nombre) {
       throw new Error(data.error || "Error al eliminar");
     });
   }
+actualizarTablaJueces(); // Actualiza la tabla de jueces después de eliminar
 })
 
 .catch(err => {
@@ -45,6 +97,7 @@ function eliminarOrganizador(nombre) {
     });
 
   }
+actualizarTablaOrganizadores(); // Actualiza la tabla de organizadores después de eliminar
 })
 .catch(err => {
   console.error('Error eliminando organizador:', err);
@@ -105,6 +158,8 @@ btnCrear.addEventListener("click", function () {
             } else {
               alert("Error: " + JSON.stringify(data));
             }
+          actualizarTablaOrganizadores(); // Actualiza la tabla de organizadores después de crear
+
           });
         
     break;
@@ -135,11 +190,15 @@ btnCrear.addEventListener("click", function () {
             } else {
               alert("Error: " + JSON.stringify(data));
             }
+          actualizarTablaJueces(); // Actualiza la tabla de jueces después de crear
           });
         
     break;
 
   }
+  document.getElementById("rolRegistrar").value = "";
+  document.getElementById("nombrecompleto").value = "";
+  document.getElementById("cedula").value = "";
 });
     
 
@@ -151,6 +210,7 @@ function actualizarTablaOrganizadores() {
     .then(data => {
       const cuerpoTablaOrganizadores = document.getElementById('cuerpoTablaOrganizadores');
       cuerpoTablaOrganizadores.innerHTML = ''; // Limpiar tabla
+      
 
       data.forEach(org => {
         const fila = document.createElement('tr');
@@ -163,7 +223,9 @@ function actualizarTablaOrganizadores() {
         btnVer.textContent = 'Ver Credencial';
         btnVer.addEventListener('click', () => {
           console.log('Ver Credencial', org.nombre);
-          // Aquí puedes agregar la lógica para ver la credencial
+
+          verCredencialOrganizador(org.nombre);
+
         });
         celdaVer.appendChild(btnVer);
 
@@ -172,7 +234,7 @@ function actualizarTablaOrganizadores() {
         btnEliminar.textContent = 'Eliminar';
         btnEliminar.addEventListener('click', () => {
           console.log('Eliminar', org.nombre);
-          eliminarOrganizador(org.nombre); // Asegúrate de tener esta función definida
+          eliminarOrganizador(org.nombre); 
         });
         celdaEliminar.appendChild(btnEliminar);
 
@@ -209,7 +271,9 @@ function actualizarTablaOrganizadores() {
           btnVer.textContent = 'Ver Credencial';
           btnVer.addEventListener('click', () => {
             console.log('Ver Credencial', org.nombre);
-            // lógica para ver la credencial
+            
+            verCredencialJuez(org.nombre);
+            
           });
           celdaVer.appendChild(btnVer);
   

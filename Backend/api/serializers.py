@@ -38,13 +38,12 @@ class SaltoSerializer(serializers.Serializer):
 class DeportistaSerializer(serializers.Serializer):
     id = serializers.CharField(read_only=True)
     nombre = serializers.CharField()
-    edad = serializers.IntegerField()
     saltos = SaltoSerializer(many=True)
 
 class DeportistaCrearSerializer(serializers.Serializer):
     nombre = serializers.CharField()
-    edad = serializers.IntegerField()
     num_saltos = serializers.IntegerField()
+    orden = serializers.IntegerField()
 
 
 #Este es para leer

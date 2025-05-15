@@ -16,8 +16,10 @@ class Salto(me.EmbeddedDocument):
 
 class Deportista(me.Document):
     nombre = me.StringField(required=True)
-    edad = me.IntField(required=True)
     saltos = me.EmbeddedDocumentListField(Salto, default=[])
+    num_saltos = me.IntField(default=0)
+    orden = me.IntField(required=True)
+    
     meta = {'collection': 'deportistas'}
 
 class Jurado(me.Document):

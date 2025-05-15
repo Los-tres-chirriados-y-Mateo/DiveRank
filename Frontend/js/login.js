@@ -42,6 +42,7 @@ loginbtn.addEventListener("click", function (e) {
     .catch(error => {
         console.error("Error:", error);
     });
+    localStorage.setItem("admin_password", credencial);
 });
 
 
@@ -69,10 +70,12 @@ ingresar.addEventListener("click", function (e) {
                 case "jurado":
                     console.log("Iniciando como juez");
                     window.location.href = ""; // Poner la dirección de la ventana del juez cuandos se haga
+                    credencial = localStorage.setItem("juez_password", credencial);
                     break;
                 case "organizador":
                     console.log("Iniciaindo como organizador");
                     window.location.href = "./Ventana1Organizador.html";
+                    credencial = localStorage.setItem("organizador_password", credencial);
                     break;
             }
             
