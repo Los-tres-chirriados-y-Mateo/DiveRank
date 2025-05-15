@@ -27,11 +27,32 @@
   <main>
     <div class="organizador-container" id="organizador-container">
       <h2 class="titulo">Organizadores</h2>
+
+      <div class="listaOrganizadores">
+
+        <table id="tablaOrganizadores">
+          <tbody id="cuerpoTablaOrganizadores">
+            
+          </tbody>
+        </table>
+
+      </div>
   
     </div>
 
     <div class="jueces-container" id="jueces-container">
       <h2 class="titulo">Jueces</h2>
+      
+      <div class="listaJueces">
+
+        <table id="listaJueces">
+          <tbody id="cuerpoTablaJueces">
+            
+          </tbody>
+        </table>
+
+      </div>
+      
   
     </div>
     <button id="openModalBtn" class="btn-crear">Crear un nuevo usuario</button>
@@ -41,16 +62,17 @@
     <h2>Crear usuario nuevo</h2>
     <form id="dialog" method="dialog">
       <h1 class="subtitulo1">Nombre:</h1>
-      <label class="nombrecompleto" id="nombrecompleto"><input type="text"></label>
+      <label class="nombrecompleto"><input id="nombrecompleto" type="text"></label>
       <h1 class="subtitulo2">Cedula:</h1>
-      <label class="cedula" id="cedula"><input type="text"></label>
+      <label class="cedula"><input id="cedula" type="text"></label>
       <h1 class="subtitulo3">Rol:</h1>
-      <label class="rol" id="rol"> 
-        <select>
-          <option></option>
-        <option>Juez</option>
-        <option>Oranizador</option>
-      </select></label>
+      <label class="rol"> 
+        <select id="rolRegistrar">
+          <option value="default"></option>
+          <option value="jurado">Juez</option>
+          <option value="organizador">Oranizador</option>
+        </select>
+      </label>
     </form>
     <label> <button class="crear" id="crear" type="submit">Crear</button></label>
   </dialog>

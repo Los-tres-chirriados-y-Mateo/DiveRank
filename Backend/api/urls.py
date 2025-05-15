@@ -14,7 +14,17 @@ from .views import (
     CrearOrganizadorView,
     BuscarJuezView,
     BuscarOrganizadorView,
-    BuscarDeportistaView,    
+    BuscarDeportistaView,
+    RegistrarPuntuaciónView,    
+    ListaOrganizadoresView,
+    ListaJuecesView,
+    BuscarAdministradorPorCredencialView,
+    BuscarJuezPorCredencialView,
+    BuscarOrganizadorPorCredencialView,
+    ListarDeportistasView,
+    VerCredencialJuezView,
+    VerCredencialOrganizadorView,
+    ActualizarSaltosView,
 )
 
 urlpatterns = [
@@ -25,15 +35,26 @@ urlpatterns = [
     path('eliminar_competencia/<str:competencia_id>/', EliminarCompetenciaView.as_view(), name='eliminar_competencia'),
     path('lista_competencias/', ListaCompetenciasView.as_view(), name='lista_competencias'),
 
+    path('registrar_puntuacion/', RegistrarPuntuaciónView.as_view(), name='registrar_puntuacion'),
+
     path('crear_deportistas/', CrearDeportistasView.as_view(), name='crear_deportistas'),
     path('editar_deportista/<str:deportista_id>/', EditarDeportistaView.as_view(), name='editar_deportista'),
     path('eliminar_deportista/<str:deportista_id>/', EliminarDeportistaView.as_view(), name='eliminar_deportista'),
-    path('eliminar_juez/<str:juez_id>/', EliminarJuezView.as_view(), name='eliminar_juez'),
-    path('eliminar_organizador/<str:organizador_id>/', EliminarOrganizadorView.as_view(), name='eliminar_organizador'),
+    path('eliminar_juez/<str:nombre>/', EliminarJuezView.as_view(), name='eliminar_juez'),
+    path('eliminar_organizador/<str:nombre>/', EliminarOrganizadorView.as_view(), name='eliminar_organizador'),
     path('crear_juez/', CrearJuezView.as_view(), name='crear_juez'),
     path('crear_organizador/', CrearOrganizadorView.as_view(), name='crear_organizador'),
     path('buscar_juez/', BuscarJuezView.as_view(), name='buscar_juez'),
     path('buscar_organizador/', BuscarOrganizadorView.as_view(), name='buscar_organizador'),
-    path('buscar_deportista/', BuscarDeportistaView.as_view(), name='buscar_deportista'),
+    path("buscar_deportista/<str:nombre>/", BuscarDeportistaView.as_view(), name="buscar_deportista"),
+    path("listar_organizadores/", ListaOrganizadoresView.as_view(), name="listar_organizadores"),
+    path("listar_jueces/", ListaJuecesView.as_view(), name="listar_jueces"),
+    path("buscar_administrador_por_credencial/", BuscarAdministradorPorCredencialView.as_view(), name="buscar_juez_por_credencial"),
+    path("buscar_juez_por_credencial/", BuscarJuezPorCredencialView.as_view(), name="buscar_juez_por_credencial"),
+    path("buscar_organizador_por_credencial/", BuscarOrganizadorPorCredencialView.as_view(), name="buscar_organizador_por_credencial"),
+    path("listar_deportistas/", ListarDeportistasView.as_view(), name="buscar_deportista"),
+    path("ver_credencial_juez/<str:nombre>/", VerCredencialJuezView.as_view(), name="ver_credencial_juez"),
+    path("ver_credencial_organizador/<str:nombre>/", VerCredencialOrganizadorView.as_view(), name="ver_credencial_organizado"),
+    path('actualizar_saltos/<str:nombre>/', ActualizarSaltosView.as_view(), name='actualizar_saltos'),
 ]
 

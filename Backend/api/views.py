@@ -2,8 +2,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Admin, Jurado, Organizador, Competencia, Deportista
-from .serializers import AdminLoginSerializer, RolLoginSerializer, CrearCompetenciaSerializer, CrearJuezSerializer, CrearOrganizadorSerializer, DeportistaCrearSerializer
+from .models import Admin, Jurado, Organizador, Competencia, Deportista, Salto, Puntuacion, PuntajeSalto
+from .serializers import AdminLoginSerializer, RolLoginSerializer, CrearCompetenciaSerializer, CrearJuezSerializer, CrearOrganizadorSerializer, DeportistaCrearSerializer, PuntajeSaltoSerializer, PuntuacionSerializer, JuradoSerializer, OrganizadorSerializer, AdminSerializer, DeportistaCrearSerializer
 
 class AdminLoginView(APIView):
     def post(self, request):
@@ -57,7 +57,7 @@ class CrearCompetenciaView(APIView): #este acepta tambien deportistas directamen
             for d in deportistas_data:
                 deportista = Deportista(
                     nombre=d['nombre'],
-                    edad=int(d['edad']),
+                    
                     saltos=d.get('saltos', [])
                 )
                 deportista.save()
@@ -107,7 +107,7 @@ class DeportistasCompetenciaView(APIView):
             data.append({
                 "id": str(d.id),
                 "nombre": d.nombre,
-                "edad": d.edad,
+                
                 "saltos": d.saltos,  # Lista de saltos
             })
 
@@ -239,22 +239,24 @@ class CrearDeportistasView(APIView):
             return Response({"error": "Se debe enviar una lista de deportistas"}, status=400)
 
         nuevos_deportistas = []
+
+        ultimo = Deportista.objects.order_by('-orden').first()
+        orden_actual = ultimo.orden + 1 if ultimo else 1
+
         for d in deportistas_data:
             nombre = d.get('nombre')
-            edad = d.get('edad')
             num_saltos = d.get('num_saltos')
             if num_saltos is None:
                 return Response({"error": "Se requiere 'num_saltos'"}, status=400)
             saltos = [Salto(nombre="", dificultad=0.0) for _ in range(num_saltos)]
 
-            if not nombre or not edad:
-                return Response({"error": "Cada deportista debe tener nombre y edad"}, status=400)
-
             deportista = Deportista(
                 nombre=nombre,
-                edad=int(edad),
-                saltos=saltos
+                saltos=saltos,
+                num_saltos=num_saltos,
+                orden = orden_actual
             )
+            orden_actual += 1
             deportista.save()
             nuevos_deportistas.append(str(deportista.id))
 
@@ -268,13 +270,11 @@ class EditarDeportistaView(APIView):
             return Response({"error": "Deportista no encontrado"}, status=404)
 
         nombre = request.data.get('nombre')
-        edad = request.data.get('edad')
+        
 
         if nombre:
             deportista.nombre = nombre
-        if edad:
-            deportista.edad = int(edad)
-
+        
         deportista.save()
 
         return Response({"mensaje": "Deportista actualizado correctamente"}, status=200)
@@ -291,9 +291,9 @@ class EliminarDeportistaView(APIView):
         return Response({"mensaje": "Deportista eliminado correctamente"}, status=200)
 
 class EliminarOrganizadorView(APIView):
-    def delete(self, request, organizador_id):
+    def delete(self, request, nombre):
         try:
-            organizador = Organizador.objects.get(id=organizador_id)
+            organizador = Organizador.objects.get(nombre=nombre)
         except Organizador.DoesNotExist:
             return Response({"error": "Organizador no encontrado"}, status=404)
 
@@ -302,9 +302,9 @@ class EliminarOrganizadorView(APIView):
         return Response({"mensaje": "Organizador eliminado correctamente"}, status=200)
 
 class EliminarJuezView(APIView):
-    def delete(self, request, juez_id):
+    def delete(self, request, nombre):
         try:
-            juez = Jurado.objects.get(id=juez_id)
+            juez = Jurado.objects.get(nombre=nombre)
         except Jurado.DoesNotExist:
             return Response({"error": "Juez no encontrado"}, status=404)
 
@@ -331,7 +331,7 @@ class CrearJuezView(APIView):
         if serializer.is_valid():
             nombre = serializer.validated_data['nombre']
             cedula = serializer.validated_data['cedula']
-            competencia_id = serializer.validated_data['competencia_id']
+
 
             if Jurado.objects(nombre=nombre).first():
                 return Response({"error": "Ya existe un juez con ese nombre"}, status=400)
@@ -340,13 +340,8 @@ class CrearJuezView(APIView):
             juez = Jurado(nombre=nombre, password=password, cedula=cedula)
             juez.save()
 
-            # Vincular de una ves con la competencia
-            competencia = Competencia.objects(id=competencia_id).first()
-            if not competencia:
-                return Response({"error": "Competencia no encontrada"}, status=404)
-
-            competencia.jueces.append(juez)
-            competencia.save()
+          
+            
 
             return Response({
                 "mensaje": "Juez creado y vinculado exitosamente",
@@ -362,7 +357,7 @@ class CrearOrganizadorView(APIView):
         if serializer.is_valid():
             nombre = serializer.validated_data['nombre']
             cedula = serializer.validated_data['cedula']
-            competencia_id = serializer.validated_data['competencia_id']
+            
 
             if Organizador.objects(nombre=nombre).first():
                 return Response({"error": "Ya existe un organizador con ese nombre"}, status=400)
@@ -371,13 +366,7 @@ class CrearOrganizadorView(APIView):
             organizador = Organizador(nombre=nombre, password=password, cedula=cedula)
             organizador.save()
 
-            # Vincular de una ves con la competencia
-            competencia = Competencia.objects(id=competencia_id).first()
-            if not competencia:
-                return Response({"error": "Competencia no encontrada"}, status=404)
 
-            competencia.organizadores.append(organizador)
-            competencia.save()
 
             return Response({
                 "mensaje": "Organizador creado y vinculado exitosamente",
@@ -388,7 +377,7 @@ class CrearOrganizadorView(APIView):
         return Response(serializer.errors, status=400)
 
 class BuscarJuezView(APIView):
-    def post(self, request):
+    def get(self, request):
         nombre = request.data.get('nombre')
         password = request.data.get('password')
 
@@ -412,7 +401,7 @@ class BuscarJuezView(APIView):
 
 
 class BuscarOrganizadorView(APIView):
-    def post(self, request):
+    def get(self, request):
         nombre = request.data.get('nombre')
         password = request.data.get('password')
 
@@ -434,26 +423,163 @@ class BuscarOrganizadorView(APIView):
         else:
             return Response({"error": "Organizador no encontrado"}, status=404)
 
+class ListarDeportistasView(APIView):
+    def get(self, request):
+
+        deportista = Deportista.objects.all()
+        serializer = DeportistaCrearSerializer(deportista, many=True)
+
+                
+        return Response(serializer.data, status=200)
+        
+class ListaOrganizadoresView(APIView):
+    def get(self, request):
+        organizadores = Organizador.objects.all()
+        datos = [
+            {
+                "nombre": o.nombre,
+                "cedula": o.cedula,
+                "password": o.password
+            } for o in organizadores
+        ]
+        return Response(datos, status=200)
+    
+class ListaJuecesView(APIView):
+    def get(self, request):
+        jueces = Jurado.objects.all()
+        datos = [
+            {
+                "nombre": o.nombre,
+                "cedula": o.cedula,
+                "password": o.password
+            } for o in jueces
+        ]
+        return Response(datos, status=200)
+
 class BuscarDeportistaView(APIView):
-    def post(self, request):
-        nombre = request.data.get('nombre')
-        edad = request.data.get('edad')
+    def get(self, request, nombre):  # mejor pasar 'nombre' por URL y como parámetro aquí
+        if not nombre:
+            return Response({"error": "Debes enviar 'nombre' para buscar"}, status=400)
 
-        if not nombre and not edad:
-            return Response({"error": "Debes enviar 'nombre' o 'edad' para buscar"}, status=400)
+        deportista = Deportista.objects(nombre=nombre).first()
 
-        # mejor buscar por nombre si lo mandan
-        if edad:
-            deportista = Deportista.objects(nombre=nombre).first()
-        else:
-            deportista = Deportista.objects(edad=edad).first()
-            
         if deportista:
+            
+            saltos_serializer = [{"nombre": salto.nombre, "dificultad": salto.dificultad} for salto in deportista.saltos]
+
             return Response({
                 "id": str(deportista.id),
                 "nombre": deportista.nombre,
-                "edad": deportista.edad,
-                "saltos": deportista.saltos
+                "saltos": saltos_serializer
             }, status=200)
         else:
             return Response({"error": "Deportista no encontrado"}, status=404)
+
+        
+class RegistrarPuntuaciónView(APIView):
+    def post(self, request):
+        serializer = PuntajeSaltoSerializer(data=request.data)
+        if serializer.is_valid():
+            deportistaId = serializer.validated_data['deportistaId']
+            datosPuntajes = serializer.validated_data['puntuaciones']
+            deportista = Deportista.objects.get(id=deportistaId)
+            if not deportista:
+                return Response({"error": "Deportista no encontrado"}, status=404)
+            puntuaciones=[]
+            for j in datosPuntajes:
+                juez = Jurado.objects.get(id=j['juezId'])
+                if not juez:
+                    return Response({"error": "Juez no encontrado"}, status=404)
+                puntuacion = Puntuacion(juez=juez, puntaje=j['puntaje'])
+                puntuaciones.append(puntuacion)
+            numeroSaltosPrevios = PuntajeSalto.objects(deportista=deportista).count()
+            dificultad = deportista.saltos[numeroSaltosPrevios].dificultad
+            puntajeSalto = PuntajeSalto(deportista=deportista, numeroSalto=numeroSaltosPrevios+1, puntajes=puntuaciones)
+            puntajeSalto.calcular_promedio(dificultad)
+            puntajeSalto.save()
+
+            return Response({"mensaje": "Puntuación registrada correctamente"}, status=201)
+        return Response(serializer.errors, status=400)
+    
+class BuscarAdministradorPorCredencialView(APIView):
+    def post(self, request):
+        credencial = request.data.get('credencial')
+        if not credencial:
+            return Response({"error": "Credencial requerida"}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            admin = Admin.objects.get(password=credencial)
+            serializer = AdminSerializer(admin)
+            return Response(serializer.data)
+        except Admin.DoesNotExist:
+            return Response({"error": "Administrador no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+
+class BuscarJuezPorCredencialView(APIView):
+    def post(self, request):
+        credencial = request.data.get('credencial')
+        if not credencial:
+            return Response({"error": "Credencial requerida"}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            juez = Jurado.objects.get(password=credencial)
+            serializer = JuradoSerializer(juez)
+            return Response(serializer.data)
+        except Jurado.DoesNotExist:
+            return Response({"error": "Juez no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+        
+class BuscarOrganizadorPorCredencialView(APIView):
+    def post(self, request):
+        credencial = request.data.get('credencial')
+        if not credencial:
+            return Response({"error": "Credencial requerida"}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            organizador = Organizador.objects.get(password=credencial)
+            serializer = OrganizadorSerializer(organizador)
+            return Response(serializer.data)
+        except Organizador.DoesNotExist:
+            return Response({"error": "Organizador no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+
+class VerCredencialJuezView(APIView):
+    def get(self, request, nombre):
+        try:
+            juez = Jurado.objects.get(nombre=nombre)
+        except Jurado.DoesNotExist:
+            return Response({"error": "Juez no encontrado"}, status=404)
+
+        data = juez.password
+
+        return Response(data, status=200)
+    
+class VerCredencialOrganizadorView(APIView):
+    def get(self, request, nombre):
+        try:
+            organizador = Organizador.objects.get(nombre=nombre)
+        except Organizador.DoesNotExist:
+            return Response({"error": "Organizador no encontrado"}, status=404)
+
+        data = organizador.password
+
+        return Response(data, status=200)
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+
+class ActualizarSaltosView(APIView):
+    def put(self, request, nombre):
+        saltos_data = request.data.get('saltos')
+        if not saltos_data:
+            return Response({"error": "No se enviaron saltos"}, status=status.HTTP_400_BAD_REQUEST)
+
+        deportista = Deportista.objects(nombre=nombre).first()
+        if not deportista:
+            return Response({"error": "Deportista no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+
+        # Convertir cada dict en instancia de Salto
+        saltos_objs = [Salto(nombre=s.get('nombre', ''), dificultad=s.get('dificultad', 0.0)) for s in saltos_data]
+
+        deportista.saltos = saltos_objs
+        deportista.save()
+
+        return Response({"mensaje": "Saltos actualizados"}, status=status.HTTP_200_OK)

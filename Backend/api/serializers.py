@@ -18,7 +18,6 @@ class CrearJuezSerializer(serializers.Serializer):
     nombre = serializers.CharField()
     cedula = serializers.CharField()
     password = serializers.CharField() 
-    competencia_id = serializers.CharField()
 
 class OrganizadorSerializer(serializers.Serializer):
     id = serializers.CharField(read_only=True)
@@ -30,7 +29,7 @@ class CrearOrganizadorSerializer(serializers.Serializer):
     nombre = serializers.CharField()
     cedula = serializers.CharField()
     password = serializers.CharField() 
-    competencia_id = serializers.CharField()
+    
 
 class SaltoSerializer(serializers.Serializer):
     nombre = serializers.CharField()
@@ -39,13 +38,12 @@ class SaltoSerializer(serializers.Serializer):
 class DeportistaSerializer(serializers.Serializer):
     id = serializers.CharField(read_only=True)
     nombre = serializers.CharField()
-    edad = serializers.IntegerField()
     saltos = SaltoSerializer(many=True)
 
 class DeportistaCrearSerializer(serializers.Serializer):
     nombre = serializers.CharField()
-    edad = serializers.IntegerField()
     num_saltos = serializers.IntegerField()
+    orden = serializers.IntegerField()
 
 
 #Este es para leer
@@ -74,3 +72,12 @@ class AdminLoginSerializer(serializers.Serializer):
 class RolLoginSerializer(serializers.Serializer):
     rol = serializers.ChoiceField(choices=['jurado', 'organizador'])
     password = serializers.CharField()
+
+class PuntuacionSerializer(serializers.Serializer):
+    juezId = serializers.CharField()
+    puntaje = serializers.FloatField(min_value=0.0, max_value=10.0)
+
+class PuntajeSaltoSerializer(serializers.Serializer):
+    deportistaId = serializers.CharField()
+    puntuaciones = serializers.ListField(child=PuntuacionSerializer())
+    promedio = serializers.FloatField(read_only=True)

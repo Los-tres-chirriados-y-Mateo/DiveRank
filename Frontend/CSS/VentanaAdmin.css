@@ -83,6 +83,7 @@ main {
 
 
 .organizador-container {
+  position: relative;
   display: flex;
   background: #f3f4f6;
   padding: 1rem;
@@ -324,3 +325,24 @@ main {
   .modalcreado{
     text-align: center;
   }
+
+.listaOrganizadores{
+  position: absolute;
+  top: 120px;
+  border-radius: 8px;
+  font-size: 1rem;
+  max-height: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.listaJueces{
+  position: absolute;
+  top: 120px;
+  border-radius: 8px;
+  font-size: 1rem;
+  max-height: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
