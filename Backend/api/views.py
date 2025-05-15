@@ -493,8 +493,9 @@ class RegistrarPuntuaciónView(APIView):
                 puntuacion = Puntuacion(juez=juez, puntaje=j['puntaje'])
                 puntuaciones.append(puntuacion)
             numeroSaltosPrevios = PuntajeSalto.objects(deportista=deportista).count()
+            dificultad = deportista.saltos[numeroSaltosPrevios].dificultad
             puntajeSalto = PuntajeSalto(deportista=deportista, numeroSalto=numeroSaltosPrevios+1, puntajes=puntuaciones)
-            puntajeSalto.calcular_promedio()
+            puntajeSalto.calcular_promedio(dificultad)
             puntajeSalto.save()
 
             return Response({"mensaje": "Puntuación registrada correctamente"}, status=201)
