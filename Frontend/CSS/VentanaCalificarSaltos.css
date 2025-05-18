@@ -1,0 +1,192 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #1ec5f3;
+    color: #fff;
+    box-sizing: border-box;
+}
+
+  .container{
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+  }
+
+  .header{
+    background-color: #1ec5f3;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 30px;
+    margin-top: 25px;
+  }
+
+  .user-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .user-icon{
+    width: 100px;
+    height: 100px;
+    border-radius: 30%;
+    background-image: url(../Images/Usuario.webp);
+    background-size: 160%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .user-details{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .username{
+    font-size: 30px;
+    font-weight: 500;
+    margin-bottom: -20px;
+    margin-left: 50px;
+  }
+
+  .separator{
+    width: 100%;
+    border: none;
+    border-top: 1px solid white;
+    margin: 4px 0;
+    margin-left: 20px;
+  }
+
+  .role{
+    font-size: 10px;
+    font-weight: 500;
+    margin-left: 70px;
+  }
+
+  .content {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* Panel de participantes */
+.participants {
+  width: 30%;
+  background-color: #005f73;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.participants h2 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.participants ul {
+  list-style: none;
+}
+
+.participants li {
+  background-color: #fff;
+  color: #000;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.participants li:hover {
+  background-color: #e0e0e0;
+}
+
+.participants li.selected {
+  background-color: #007b9e;
+  color: #fff;
+}
+
+/* Panel de información del participante seleccionado */
+.participant-details {
+  width: 65%;
+  background-color: #005f73;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.info-row{
+  display: inline-block;
+  margin-right: 30px;
+  margin-bottom: 20px;
+}
+
+.info-value {
+  font-size: 1.2rem;
+  color: #000;
+  font-weight: 500;
+}
+
+.info p {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.rating {
+  margin-top: 20px;
+}
+
+.rating-label {
+  font-size: 2rem;
+  color: #fff;
+  display: block;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.rating input[type="number"] {
+  width: 400px;
+  height: 60px;
+  font-size: 2rem;
+  border-radius: 5px;
+  border: none;
+  margin: 0 auto 20px auto;
+  display: block;
+  padding: 10px;
+}
+
+.rating .note {
+  color: #fff;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.warning-icon {
+  color: #000;
+  font-size: 2rem;
+}
+
+.rating button {
+  background-color: #005f73;
+  border: none;
+  padding: 20px 50px;
+  border-radius: 30px;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  float: right;
+  margin-top: 30px;
+}
+
+.rating button:hover {
+  background-color: #005f73;
+}
