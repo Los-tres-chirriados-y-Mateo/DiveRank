@@ -43,8 +43,8 @@ window.verMas = function(idx) {
 }
 
 // Puedes poner aquí la lógica para mostrar el usuario y rol si lo necesitas
-document.getElementById('username').textContent = "Julian Londoño";
-document.getElementById('role').textContent = "Organizador";
+document.getElementById('username').textContent = "";
+document.getElementById('role').textContent = "";
 
 // Llama a la función al cargar la página
 crearTablaResultados();
