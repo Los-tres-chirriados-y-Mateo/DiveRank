@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mejores Puntuaciones</title>
+    <link rel="stylesheet" href="CSS/VentanaMejoresPuntuaciones.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="user-info">
+            <div class="user-icon"></div>
+            <div class="user-details">
+                <div class="username" id="username"></div>
+                <div class="role" id="role"></div>
+            </div>
+        </div>
+        <div class="titulo">
+            <h1>TOP 5: Mejores Resultados</h1>
+        </div>
+        <div class="home-icon">
+            <a href="login.html" class="home-icon" role="button" aria-label="Ir al inicio">
+                <img src="Images/home.png" alt="Inicio">
+            </a>
+        </div>
+    </header>
+
+    <div class="contenedorDificultad">
+        <table class="tabla-competidor">
+            <thead>
+                <tr>
+                    <th>Posición</th>
+                    <th>Nombre</th>
+                    <th>Puntuación</th>
+                </tr>
+            </thead>
+            <tbody id="scoresTableBody">
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text">
+        <h1>Ultimo Salto</h1>
+    </div>
+
+    <div class="contenedorDificultad">
+        <table class="tabla-competidor">
+            <thead>
+                <tr>
+                    <th>Posición</th>
+                    <th>Nombre</th>
+                    <th>Puntuación</th>
+                </tr>
+            </thead>
+            <tbody id="lastScoreTableBody">
+
+            </tbody>
+        </table>
+    </div>
+
+    <script src="js/VentanaMejoresPuntuaciones.js"></script>
+</body>
+
+</html>

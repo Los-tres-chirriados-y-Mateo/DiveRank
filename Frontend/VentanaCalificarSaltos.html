@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calificar Saltos</title>
+  <link rel="stylesheet" href="CSS/VentanaCalificarSaltos.css">
+</head>
+
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="user-info">
+        <div class="user-icon"></div>
+        <div class="user-details">
+          <h2 class="username" id="username">Alejandro Mora</h2>
+          <hr class="separator">
+          <p class="role" id="role">JUEZ</p>
+        </div>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <aside class="participants">
+        <h2>Participantes</h2>
+        <ul id="participantList">
+          
+        </ul>
+      </aside>
+
+      <section class="main_section">
+        <main class="participant-details">
+          <div class="info-blocks">
+            <div class="info-box">
+              <h3>Participante</h3>
+              <p id="participantName"></p>
+            </div>
+            <div class="info-box">
+              <h3>Salto</h3>
+              <p id="JumpType"></p>
+            </div>
+            <div class="info-box">
+              <h3>Dificultad</h3>
+              <p id="difficulty"></p>
+            </div>
+          </div>
+
+          <div class="rating">
+            <label for="ratingInput" class="rating-label">Inserte una calificación :</label>
+            <input type="number" id="ratingInput" name="rating" step="0.5" min="0" max="10">
+            <div class="note">
+              <span class="warning-icon">&#9888;</span>
+              Inserte una calificación de 0 a 10.
+            </div>
+            <button id="SubmitRating" type="button">Enviar calificación</button>
+          </div>
+        </main>
+      </section>
+    </div>
+  </div>
+  <script src="js/VentanaCalificarSaltos.js"></script>
+</body>
+
+</html>
