@@ -79,3 +79,10 @@ class Competencia(me.Document):
         usuario.save()
         self.save()
         return password_unica
+
+class Ranking(me.Document):
+    deportista = me.ReferenceField(Deportista, required = True, unique=True)
+    promedios = me.ListField(me.FloatField(), required=True)
+    posicion = me.IntField(required=True)
+
+    meta = {'collection': 'ranking', 'ordering': ['posicion']}

@@ -2,8 +2,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Admin, Jurado, Organizador, Competencia, Deportista, Salto, Puntuacion, PuntajeSalto
-from .serializers import AdminLoginSerializer, RolLoginSerializer, CrearCompetenciaSerializer, CrearJuezSerializer, CrearOrganizadorSerializer, DeportistaCrearSerializer, PuntajeSaltoSerializer, PuntuacionSerializer, JuradoSerializer, OrganizadorSerializer, AdminSerializer, DeportistaCrearSerializer
+from .models import Admin, Jurado, Organizador, Competencia, Deportista, Salto, Puntuacion, PuntajeSalto, Ranking
+from .serializers import AdminLoginSerializer, RolLoginSerializer, CrearCompetenciaSerializer, CrearJuezSerializer, CrearOrganizadorSerializer, DeportistaCrearSerializer, PuntajeSaltoSerializer, PuntuacionSerializer, JuradoSerializer, OrganizadorSerializer, AdminSerializer, DeportistaCrearSerializer, RankingSerializer
 
 class AdminLoginView(APIView):
     def post(self, request):
@@ -583,3 +583,29 @@ class ActualizarSaltosView(APIView):
         deportista.save()
 
         return Response({"mensaje": "Saltos actualizados"}, status=status.HTTP_200_OK)
+    
+class ListarYActualizarRankingView(APIView):
+    def get(self, request):
+        datos = {}
+        resultados = []
+        for salto in PuntajeSalto.objects:
+            idDeportista = str(salto.deportista.id)
+            if idDeportista not in datos:
+                datos[idDeportista] = []
+            datos[idDeportista].append(salto.promedio)
+        for idDeportista, promedio in datos.items():
+            deportista = Deportista.objects.get(id = idDeportista)
+            totalPromedio = sum(promedio)
+            resultados.append((deportista, totalPromedio, promedio))
+        resultados.sort(key=lambda x:x[1], reverse = True)
+        Ranking.drop_collection()
+        for i, (deportista, j, promedio) in enumerate(resultados, start=1):
+
+            Ranking(deportista=deportista, promedios = promedio, posicion = i).save()
+            
+
+        ranking = Ranking.objects.order_by('posicion')
+        
+        serializer = RankingSerializer(ranking, many=True)
+        return Response(serializer.data, status=200)
+            

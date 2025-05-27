@@ -25,6 +25,7 @@ from .views import (
     VerCredencialJuezView,
     VerCredencialOrganizadorView,
     ActualizarSaltosView,
+    ListarYActualizarRankingView
 )
 
 urlpatterns = [
@@ -56,5 +57,6 @@ urlpatterns = [
     path("ver_credencial_juez/<str:nombre>/", VerCredencialJuezView.as_view(), name="ver_credencial_juez"),
     path("ver_credencial_organizador/<str:nombre>/", VerCredencialOrganizadorView.as_view(), name="ver_credencial_organizado"),
     path('actualizar_saltos/<str:nombre>/', ActualizarSaltosView.as_view(), name='actualizar_saltos'),
+    path('listar_y_actualizar_rankin/', ListarYActualizarRankingView.as_view(), name='listar_y_actualizar_ranking'),
 ]
 
