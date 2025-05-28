@@ -41,22 +41,6 @@ class Puntuacion(me.EmbeddedDocument):
     juez = me.ReferenceField(Jurado, required=True)
     puntaje = me.FloatField(required=True, min_value=0.0, max_value=10.0)
 
-class PuntajeSalto(me.Document):
-    deportista = me.ReferenceField(Deportista, required=True)
-    numeroSalto = me.IntField(required = False)
-    puntajes = me.EmbeddedDocumentListField(Puntuacion, default=[])
-    promedio= me.FloatField(default=0.0)
-    def calcular_promedio(self, dificultad):
-        """Calcula el promedio de los puntajes del salto."""
-        if len(self.puntajes) < 3:
-            raise ValueError("Se requieren al menos 3 puntajes para calcular el promedio.")
-        puntajes = sorted([p.puntaje for p in self.puntajes])
-        mitad = len(puntajes)//2
-        selecteds = puntajes[mitad-1:mitad+2]  # Selecciona los 3 puntajes centrales
-        self.promedio = (sum(selecteds)/3)*dificultad
-        self.save()
-        
-    meta = {'collection': 'puntajes_saltos'}
 
 class Competencia(me.Document):
     nombre = me.StringField(required=True)
@@ -86,3 +70,21 @@ class Ranking(me.Document):
     posicion = me.IntField(required=True)
 
     meta = {'collection': 'ranking', 'ordering': ['posicion']}
+
+class PuntajeSalto(me.Document):
+    deportista = me.ReferenceField(Deportista, required=True)
+    numeroSalto = me.IntField(required = False)
+    competencia = me.ReferenceField(Competencia, required=False)#False dado que de momento solo manejamos una unica competencia
+    puntajes = me.EmbeddedDocumentListField(Puntuacion, default=[])
+    promedio= me.FloatField(default=0.0)
+    def calcular_promedio(self, dificultad):
+        """Calcula el promedio de los puntajes del salto."""
+        if len(self.puntajes) < 3:
+            raise ValueError("Se requieren al menos 3 puntajes para calcular el promedio.")
+        puntajes = sorted([p.puntaje for p in self.puntajes])
+        mitad = len(puntajes)//2
+        selecteds = puntajes[mitad-1:mitad+2]  # Selecciona los 3 puntajes centrales
+        self.promedio = (sum(selecteds)/3)*dificultad
+        self.save()
+        
+    meta = {'collection': 'puntajes_saltos'}

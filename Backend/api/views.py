@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Admin, Jurado, Organizador, Competencia, Deportista, Salto, Puntuacion, PuntajeSalto, Ranking
-from .serializers import AdminLoginSerializer, RolLoginSerializer, CrearCompetenciaSerializer, CrearJuezSerializer, CrearOrganizadorSerializer, DeportistaCrearSerializer, PuntajeSaltoSerializer, PuntuacionSerializer, JuradoSerializer, OrganizadorSerializer, AdminSerializer, DeportistaCrearSerializer, RankingSerializer
+from .serializers import AdminLoginSerializer, RolLoginSerializer, CrearCompetenciaSerializer, CrearJuezSerializer, CrearOrganizadorSerializer, DeportistaCrearSerializer, PuntuacionIndividualSerializer, PuntuacionSerializer, JuradoSerializer, OrganizadorSerializer, AdminSerializer, DeportistaCrearSerializer, RankingSerializer
 
 class AdminLoginView(APIView):
     def post(self, request):
@@ -476,29 +476,54 @@ class BuscarDeportistaView(APIView):
             return Response({"error": "Deportista no encontrado"}, status=404)
 
         
-class RegistrarPuntuaciónView(APIView):
+class RegistrarPuntuacionIndividualView(APIView):
     def post(self, request):
-        serializer = PuntajeSaltoSerializer(data=request.data)
+        serializer = PuntuacionIndividualSerializer(data=request.data)
         if serializer.is_valid():
-            deportistaId = serializer.validated_data['deportistaId']
-            datosPuntajes = serializer.validated_data['puntuaciones']
-            deportista = Deportista.objects.get(id=deportistaId)
-            if not deportista:
-                return Response({"error": "Deportista no encontrado"}, status=404)
-            puntuaciones=[]
-            for j in datosPuntajes:
-                juez = Jurado.objects.get(id=j['juezId'])
-                if not juez:
-                    return Response({"error": "Juez no encontrado"}, status=404)
-                puntuacion = Puntuacion(juez=juez, puntaje=j['puntaje'])
-                puntuaciones.append(puntuacion)
-            numeroSaltosPrevios = PuntajeSalto.objects(deportista=deportista).count()
-            dificultad = deportista.saltos[numeroSaltosPrevios].dificultad
-            puntajeSalto = PuntajeSalto(deportista=deportista, numeroSalto=numeroSaltosPrevios+1, puntajes=puntuaciones)
-            puntajeSalto.calcular_promedio(dificultad)
-            puntajeSalto.save()
+            data = serializer.validated_data
+            deportista = Deportista.objects(id=data['deportista_id']).first()
+            juez = Jurado.objects(id=data['juez_id']).first()
+            competencia = Competencia.objects.first()
 
-            return Response({"mensaje": "Puntuación registrada correctamente"}, status=201)
+            if not deportista or not juez or not competencia:
+                return Response({"error": "Datos inválidos"}, status=400)
+
+            if juez not in competencia.jueces or deportista not in competencia.deportistas:
+                return Response({"error": "Juez o deportista no están en la competencia"}, status=400)
+
+            # Traer todos los saltos de este deportista en esta competencia
+            saltos = PuntajeSalto.objects(deportista=deportista, competencia=competencia).order_by('numeroSalto')
+
+            # Buscar el primero que esté incompleto (no todos los jueces han calificado)
+            salto = next((s for s in saltos if len(s.puntajes) < len(competencia.jueces)), None)
+
+            if not salto:
+                # Si no hay salto incompleto, creamos uno nuevo
+                ultimo_num = saltos.order_by('-numeroSalto').first().numeroSalto if saltos else 0
+                salto = PuntajeSalto(
+                    deportista=deportista,
+                    competencia=competencia,
+                    numeroSalto=ultimo_num + 1,
+                    puntajes=[]
+                )
+
+            # Miramos si el juez ya calificó este salto
+            for p in salto.puntajes:
+                if p.juez.id == juez.id:
+                    return Response({"error": "Este juez ya calificó este salto"}, status=400)
+
+            salto.puntajes.append(Puntuacion(juez=juez, puntaje=data['puntaje']))
+            dificultad = deportista.saltos[salto.numeroSalto-1].dificultad
+
+            if len(salto.puntajes) == len(competencia.jueces):
+                salto.calcular_promedio(dificultad)
+                salto.save()
+                ListarYActualizarRankingView().get(request)  # Actualizar ranking después de calcular el promedio
+                return Response({"mensaje": "Puntaje registrado. Promedio calculado y ranking actualizado."}, status=201)
+            else:
+                salto.save()
+                return Response({"mensaje": "Puntaje registrado. Esperando a los demás jueces."}, status=201)
+
         return Response(serializer.errors, status=400)
     
 class BuscarAdministradorPorCredencialView(APIView):
@@ -561,10 +586,6 @@ class VerCredencialOrganizadorView(APIView):
         data = organizador.password
 
         return Response(data, status=200)
-
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
 
 class ActualizarSaltosView(APIView):
     def put(self, request, nombre):
