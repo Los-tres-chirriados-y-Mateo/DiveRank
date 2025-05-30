@@ -258,6 +258,10 @@ class CrearDeportistasView(APIView):
             )
             orden_actual += 1
             deportista.save()
+            competencia = Competencia.objects.first()
+            if competencia:
+                competencia.deportistas.append(deportista)
+                competencia.save()
             nuevos_deportistas.append(str(deportista.id))
 
         return Response({"mensaje": "Deportistas creados exitosamente", "ids": nuevos_deportistas}, status=201)
@@ -286,6 +290,11 @@ class EliminarDeportistaView(APIView):
         except Deportista.DoesNotExist:
             return Response({"error": "Deportista no encontrado"}, status=404)
 
+        competencia = Competencia.objects.first()
+        if competencia and deportista in competencia.deportistas:
+            competencia.deportistas.remove(deportista)
+            competencia.save()
+
         deportista.delete()
 
         return Response({"mensaje": "Deportista eliminado correctamente"}, status=200)
@@ -297,6 +306,11 @@ class EliminarOrganizadorView(APIView):
         except Organizador.DoesNotExist:
             return Response({"error": "Organizador no encontrado"}, status=404)
 
+        competencia = Competencia.objects.first()
+        if competencia and organizador in competencia.organizadores:
+            competencia.organizadores.remove(organizador)
+            competencia.save()
+
         organizador.delete()
 
         return Response({"mensaje": "Organizador eliminado correctamente"}, status=200)
@@ -307,6 +321,11 @@ class EliminarJuezView(APIView):
             juez = Jurado.objects.get(nombre=nombre)
         except Jurado.DoesNotExist:
             return Response({"error": "Juez no encontrado"}, status=404)
+
+        competencia = Competencia.objects.first()
+        if competencia and juez in competencia.jueces:
+            competencia.jueces.remove(juez)
+            competencia.save()
 
         juez.delete()
 
@@ -339,8 +358,10 @@ class CrearJuezView(APIView):
             password = serializer.validated_data['password']
             juez = Jurado(nombre=nombre, password=password, cedula=cedula)
             juez.save()
-
-          
+            competencia = Competencia.objects.first()
+            if competencia:
+                competencia.jueces.append(juez)
+                competencia.save()
             
 
             return Response({
@@ -365,7 +386,10 @@ class CrearOrganizadorView(APIView):
             password = serializer.validated_data['password']
             organizador = Organizador(nombre=nombre, password=password, cedula=cedula)
             organizador.save()
-
+            competencia = Competencia.objects.first()
+            if competencia:
+                competencia.organizadores.append(organizador)
+                competencia.save()
 
 
             return Response({
