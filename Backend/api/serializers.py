@@ -19,6 +19,10 @@ class CrearJuezSerializer(serializers.Serializer):
     cedula = serializers.CharField()
     password = serializers.CharField() 
 
+class CrearAdministradorSerializer(serializers.Serializer):
+    nombre = serializers.CharField()
+    password = serializers.CharField() 
+
 class OrganizadorSerializer(serializers.Serializer):
     id = serializers.CharField(read_only=True)
     nombre = serializers.CharField()
