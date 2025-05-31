@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Admin, Jurado, Organizador, Competencia, Deportista, Salto, Puntuacion, PuntajeSalto, Ranking
-from .serializers import AdminLoginSerializer, RolLoginSerializer, CrearCompetenciaSerializer, CrearJuezSerializer, CrearOrganizadorSerializer, DeportistaCrearSerializer, PuntuacionIndividualSerializer, PuntuacionSerializer, JuradoSerializer, OrganizadorSerializer, AdminSerializer, DeportistaCrearSerializer, RankingSerializer
+from .serializers import AdminLoginSerializer, RolLoginSerializer, CrearCompetenciaSerializer, CrearJuezSerializer, CrearOrganizadorSerializer, DeportistaCrearSerializer, PuntuacionIndividualSerializer, PuntuacionSerializer, JuradoSerializer, OrganizadorSerializer, AdminSerializer, DeportistaCrearSerializer, RankingSerializer, CrearAdministradorSerializer
 
 class AdminLoginView(APIView):
     def post(self, request):
@@ -654,3 +654,60 @@ class ListarYActualizarRankingView(APIView):
         serializer = RankingSerializer(ranking, many=True)
         return Response(serializer.data, status=200)
             
+class ListaAdministradoresView(APIView):
+    def get(self, request):
+        administradores = Admin.objects.all()
+        datos = [
+            {
+                "nombre": o.nombre,
+                "password": o.password
+            } for o in administradores
+        ]
+        return Response(datos, status=200)
+    
+class VerCredencialAdministradorView(APIView):
+    def get(self, request, nombre):
+        try:
+            administrador = Admin.objects.get(nombre=nombre)
+        except Admin.DoesNotExist:
+            return Response({"error": "Administrador no encontrado"}, status=404)
+
+        data = administrador.password
+
+        return Response(data, status=200)
+    
+class EliminarAdministradorView(APIView):
+    def delete(self, request, nombre):
+        try:
+            administrador = Admin.objects.get(nombre=nombre)
+        except Admin.DoesNotExist:
+            return Response({"error": "Administrador no encontrado"}, status=404)
+
+        
+
+        administrador.delete()
+
+        return Response({"mensaje": "Administrador eliminado correctamente"}, status=200)
+    
+class CrearAdministradorView(APIView):
+    def post(self, request):
+        serializer = CrearAdministradorSerializer(data=request.data)
+        if serializer.is_valid():
+            nombre = serializer.validated_data['nombre']
+
+
+            if Admin.objects(nombre=nombre).first():
+                return Response({"error": "Ya existe un administrador con ese nombre"}, status=400)
+
+            password = serializer.validated_data['password']
+            juez = Admin(nombre=nombre, password=password)
+            juez.save()
+            
+            
+
+            return Response({
+                "mensaje": "Administrador creado y vinculado exitosamente",
+                "nombre": nombre,
+            }, status=201)
+
+        return Response(serializer.errors, status=400)
