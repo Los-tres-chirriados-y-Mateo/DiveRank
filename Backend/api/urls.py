@@ -66,5 +66,6 @@ urlpatterns = [
     path('ver_credencial_administrador/<str:nombre>/', VerCredencialAdministradorView.as_view(), name='ver_credencial_administrador'),
     path('eliminar_administrador/<str:nombre>/', EliminarAdministradorView.as_view(), name='eliminar_administrador'),
     path('crear_administrador/', CrearAdministradorView.as_view(), name='crear_administrador'),
+    path('buscar_admin_por_nombre/<str:nombre>/', BuscarAdminPorNombreView.as_view(), name='buscar_admin_por_nombre')
 ]
 

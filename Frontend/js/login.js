@@ -4,6 +4,9 @@ const closebtn = document.querySelector("#admin-cancel");
 const dialog = document.querySelector("#adminForm");
 const loginbtn = document.querySelector("#admin-login");
 const ingresar = document.querySelector("#btn-ingresar");   
+document.getElementById("public-btn").addEventListener("click", function() {
+    window.location.href = "VentanaMejoresPuntuaciones.html";
+});
 
 btnadminmodal.addEventListener("click", function () {
     adminModal.showModal();

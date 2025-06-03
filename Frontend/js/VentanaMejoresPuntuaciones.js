@@ -25,3 +25,38 @@ fetch(API_URL)
     .catch(error => {
         console.error("Error:", error);
     });
+
+
+    function cargarTablaRanking(url) {
+    fetch(url)
+        .then(res => {
+            if (!res.ok) throw new Error("Error al obtener datos del ranking");
+            return res.json();
+        })
+        .then(data => {
+            const tbody = document.getElementById("scoresTableBody");
+            tbody.innerHTML = ""; // Limpia cualquier contenido anterior
+
+            data.forEach(item => {
+                const fila = document.createElement("tr");
+
+                // Calculamos el promedio general
+                const total = item.promedios.reduce((a, b) => a + b, 0);
+                const promedio = (total / item.promedios.length).toFixed(2);
+
+                fila.innerHTML = `
+                    <td>${item.posicion}</td>
+                    <td>${item.deportistaNombre}</td>
+                    <td>${promedio}</td>
+                `;
+                tbody.appendChild(fila);
+            });
+            
+        })
+        .catch(err => {
+            console.error("Error cargando tabla:", err);
+        });
+}
+
+// Llama esta función cuando cargue tu página o en el momento que necesites
+cargarTablaRanking('http://127.0.0.1:8000/listar_y_actualizar_rankin/');

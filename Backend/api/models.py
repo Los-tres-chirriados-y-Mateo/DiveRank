@@ -39,7 +39,7 @@ class Organizador(me.Document):
 
 class Puntuacion(me.EmbeddedDocument):
     juez = me.ReferenceField(Jurado, required=True)
-    puntaje = me.FloatField(required=True, min_value=0.0, max_value=10.0)
+    puntaje = me.FloatField(required=True, min_value=-2.0, max_value=10.0)
 
 
 class Competencia(me.Document):
@@ -81,10 +81,13 @@ class PuntajeSalto(me.Document):
         """Calcula el promedio de los puntajes del salto."""
         if len(self.puntajes) < 3:
             raise ValueError("Se requieren al menos 3 puntajes para calcular el promedio.")
-        puntajes = sorted([p.puntaje for p in self.puntajes])
-        mitad = len(puntajes)//2
-        selecteds = puntajes[mitad-1:mitad+2]  # Selecciona los 3 puntajes centrales
-        self.promedio = (sum(selecteds)/3)*dificultad
+        if all(v == -1 for v in valores):
+            self.promedio = -1
+        else:
+            puntajes = sorted([p for p in valores if p != -1])
+            mitad = len(puntajes) // 2
+            selecteds = puntajes[mitad - 1:mitad + 2]
+            self.promedio = (sum(selecteds) / 3) * dificultad
         self.save()
         
     meta = {'collection': 'puntajes_saltos'}
