@@ -653,4 +653,11 @@ class ListarYActualizarRankingView(APIView):
         
         serializer = RankingSerializer(ranking, many=True)
         return Response(serializer.data, status=200)
-            
+
+class BuscarAdminPorNombreView(APIView):
+    def get(self, request, nombre):
+        admin = Admin.objects(nombre=nombre).first()
+        if admin:
+            serializer = AdminSerializer(admin)
+            return Response(serializer.data, status=200)
+        return Response({"error": "Admin no encontrado"}, status=404)       
