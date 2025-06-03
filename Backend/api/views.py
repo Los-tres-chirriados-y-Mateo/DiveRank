@@ -711,3 +711,11 @@ class CrearAdministradorView(APIView):
             }, status=201)
 
         return Response(serializer.errors, status=400)
+
+class BuscarAdminPorNombreView(APIView):
+    def get(self, request, nombre):
+        admin = Admin.objects(nombre=nombre).first()
+        if admin:
+            serializer = AdminSerializer(admin)
+            return Response(serializer.data, status=200)
+        return Response({"error": "Admin no encontrado"}, status=404)
