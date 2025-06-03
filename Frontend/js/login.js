@@ -32,7 +32,15 @@ loginbtn.addEventListener("click", function (e) {
         if (res.status === 200){
             dialog.reset();
             adminModal.close();
-            window.location.href = "./VentanaAdmin.html"; 
+            switch (credencial) {
+                case "1234567890":
+                    window.location.href = "./VentanaAdministrarAdministradores.html";
+                    break;
+                default:
+                    window.location.href = "./VentanaAdmin.html";
+                    break;
+            }
+             
         } else {
             alert("Credenciales incorrectas");
             dialog.reset();

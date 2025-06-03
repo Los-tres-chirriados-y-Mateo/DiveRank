@@ -240,6 +240,32 @@ body {
   background: #0d3554;
 }
 
+.right-panel {
+  width: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.disqualify-btn {
+  background: #114e7b;
+  color: #fff;
+  border: none;
+  border-radius: 40px;
+  padding: 32px 32px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-bottom: 18px;
+  width: 100%;
+  transition: background 0.2s;
+}
+
+.disqualify-btn:hover {
+  background: #0d3554;
+}
+
+
 .info-box {
   background-color: #003049;
   color: white;

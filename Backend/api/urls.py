@@ -15,7 +15,7 @@ from .views import (
     BuscarJuezView,
     BuscarOrganizadorView,
     BuscarDeportistaView,
-    RegistrarPuntuacionIndividualView,    
+    RegistrarPuntuacionIndividualView,   
     ListaOrganizadoresView,
     ListaJuecesView,
     BuscarAdministradorPorCredencialView,
@@ -25,7 +25,11 @@ from .views import (
     VerCredencialJuezView,
     VerCredencialOrganizadorView,
     ActualizarSaltosView,
-    ListarYActualizarRankingView
+    ListarYActualizarRankingView,
+    ListaAdministradoresView,
+    VerCredencialAdministradorView,
+    EliminarAdministradorView,
+    CrearAdministradorView,
 )
 
 urlpatterns = [
@@ -58,6 +62,10 @@ urlpatterns = [
     path("ver_credencial_organizador/<str:nombre>/", VerCredencialOrganizadorView.as_view(), name="ver_credencial_organizado"),
     path('actualizar_saltos/<str:nombre>/', ActualizarSaltosView.as_view(), name='actualizar_saltos'),
     path('listar_y_actualizar_rankin/', ListarYActualizarRankingView.as_view(), name='listar_y_actualizar_ranking'),
-    path('buscar_admin_por_nombre/<str:nombre>/', BuscarAdminPorNombreView.as_view(), name='buscar_admin_por_nombre'),
+    path('listar_administradores/', ListaAdministradoresView.as_view(), name='listar_administradores'),
+    path('ver_credencial_administrador/<str:nombre>/', VerCredencialAdministradorView.as_view(), name='ver_credencial_administrador'),
+    path('eliminar_administrador/<str:nombre>/', EliminarAdministradorView.as_view(), name='eliminar_administrador'),
+    path('crear_administrador/', CrearAdministradorView.as_view(), name='crear_administrador'),
+    path('buscar_admin_por_nombre/<str:nombre>/', BuscarAdminPorNombreView.as_view(), name='buscar_admin_por_nombre')
 ]
 
