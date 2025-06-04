@@ -48,3 +48,7 @@ document.getElementById('role').textContent = "";
 
 // Llama a la función al cargar la página
 crearTablaResultados();
+
+function LeerResultadosGenerales() {
+
+};
