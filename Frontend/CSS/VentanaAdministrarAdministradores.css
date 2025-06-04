@@ -111,14 +111,15 @@ main {
     justify-content: center;
     align-items: center;
     display: flex;
-    padding: 2rem;
-    border-radius: 2rem;
+    padding: 1.7rem;
+    border-radius: 1rem;
     font-weight: bold;
     margin-bottom: 1rem;
-    font-size: 1.8rem;
-    margin-left: 17%;
+    font-size: 1.7rem;
     width: 170px;
     height: 5px;
+    margin-left: 87px;
+    margin-top: 10px;
   }
   
   .organizador-item {
@@ -202,7 +203,6 @@ main {
     width: 200px;
     height: 50px;
     top: 400px;
-    left: 580px;
   }
 
 
