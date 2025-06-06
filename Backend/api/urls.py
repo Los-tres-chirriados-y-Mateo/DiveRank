@@ -30,6 +30,7 @@ from .views import (
     VerCredencialAdministradorView,
     EliminarAdministradorView,
     CrearAdministradorView,
+    BuscarAdminPorNombreView,
 )
 
 urlpatterns = [

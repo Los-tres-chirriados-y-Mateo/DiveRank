@@ -154,7 +154,7 @@ btnCrear.addEventListener("click", function () {
             if (res.ok) {
               modal.close();
               modalcreado.showModal();
-              document.querySelector("#credencial").textContent = "La credencial generada es: " + credencial;
+              document.querySelector("#credencial").textContent =  credencial;
             } else {
               alert("Error: " + JSON.stringify(data));
             }
@@ -186,7 +186,7 @@ btnCrear.addEventListener("click", function () {
             if (res.ok) {
               modal.close();
               modalcreado.showModal();
-              document.querySelector("#credencial").textContent = "La credencial generada es: " + credencial;
+              document.querySelector("#credencial").textContent =  credencial;
             } else {
               alert("Error: " + JSON.stringify(data));
             }
