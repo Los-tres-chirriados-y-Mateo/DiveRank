@@ -1,10 +1,13 @@
 const password = localStorage.getItem("organizador_password");
 const btnAgregar = document.querySelector("#agregar-competidor")
+const btnresultados = document.querySelector("#btn-resultados");
 
 console.log(password);
 llenarTabla();
 
-
+btnresultados.addEventListener("click", () => {
+  window.location.href = "./VentanaResultadosGenerales.html";
+});
 
 fetch("http://127.0.0.1:8000/buscar_organizador_por_credencial/",{
   method: "POST",

@@ -1,6 +1,8 @@
 //Lógica para obtener ultimo salto 
 const API_URL = ''; 
 
+console.time("Cargando último salto");
+
 fetch(API_URL)
     .then(response => {
         if (!response.ok) {
@@ -50,8 +52,9 @@ fetch(API_URL)
                     <td>${promedio}</td>
                 `;
                 tbody.appendChild(fila);
+                console.timeEnd("Cargando último salto");
             });
-            
+
         })
         .catch(err => {
             console.error("Error cargando tabla:", err);
@@ -60,3 +63,4 @@ fetch(API_URL)
 
 // Llama esta función cuando cargue tu página o en el momento que necesites
 cargarTablaRanking('http://127.0.0.1:8000/listar_y_actualizar_rankin/');
+

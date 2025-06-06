@@ -4,6 +4,8 @@ const closebtn = document.querySelector("#admin-cancel");
 const dialog = document.querySelector("#adminForm");
 const loginbtn = document.querySelector("#admin-login");
 const ingresar = document.querySelector("#btn-ingresar");   
+
+
 document.getElementById("public-btn").addEventListener("click", function() {
     window.location.href = "VentanaMejoresPuntuaciones.html";
 });
@@ -80,7 +82,7 @@ ingresar.addEventListener("click", function (e) {
             switch (rol) {
                 case "jurado":
                     console.log("Iniciando como juez");
-                    window.location.href = ""; // Poner la dirección de la ventana del juez cuandos se haga
+                    window.location.href = "./VentanaCalificarSaltos.html"; // Poner la dirección de la ventana del juez cuandos se haga
                     credencial = localStorage.setItem("juez_password", credencial);
                     break;
                 case "organizador":

@@ -81,10 +81,10 @@ class PuntajeSalto(me.Document):
         """Calcula el promedio de los puntajes del salto."""
         if len(self.puntajes) < 3:
             raise ValueError("Se requieren al menos 3 puntajes para calcular el promedio.")
-        if all(v == -1 for v in valores):
+        if all(v == -1 for v in puntajes):
             self.promedio = -1
         else:
-            puntajes = sorted([p for p in valores if p != -1])
+            puntajes = sorted([p for p in puntajes if p != -1])
             mitad = len(puntajes) // 2
             selecteds = puntajes[mitad - 1:mitad + 2]
             self.promedio = (sum(selecteds) / 3) * dificultad
