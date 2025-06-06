@@ -1,84 +1,95 @@
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background-color: #1ec5f3;
+    background-color: #5E9FB4;
   }
   
 .header {
-    background-color: #1ec5f3;
+    background-color: #5E9FB4;
     color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0px 30px;
     margin-top: 25px;
-  }
-  
+    
+}
+
 .user-info {
     display: flex;
     align-items: center;
-  }
-  
+}
+
+
 .user-icon {
-  width: 100px;
+ width: 100px;
   height: 100px;
   border-radius: 30%;
-  background-image: url('../Images/Logo\ DiveRank.png');
   background-size: 160%;
   background-repeat: no-repeat;
   background-position: center;
+}
 
-  }
-  
-.user-details {
-    display: flex;
-    flex-direction: column;
-  }
-  
-.username {
+.user-name {
     font-size: 30px;
     font-weight: 500;
-    margin-bottom: 10px;
-    margin-left: 30px;
-  }
-  
-.separator {
-    width: 100%;
-    border: none;
-    border-top: 1px solid white;
-    margin: 4px 0;
-    margin-left: 20px;
-  }
-  
-.role {
-    font-size: 25px;
-    font-weight: 500;
-    margin-left: 70px;
-     
-  }
-  
+    margin-bottom: -20px;
+    margin-left: 50px;
+}
 
-.home-icon img {
+.icon-button {
     width: 70px;         
     display: block;        
-    margin: 10px;         
-   
-  }
-  
-.home-icon img:hover {
-    transform: scale(1.1); 
-  }
+    margin: 10px;   
+}
+
+.role {
+    font-size: 10px;
+    font-weight: 500;
+    margin-left: 90px;
+}
+
+.main {
+  text-align: center;
+  padding: 20px;
+}
+
+.logo-site{
+    position: fixed;
+  bottom: 10px;
+  right: 10px;
+  width: 70px;  
+  height: auto;
+  z-index: 1000;
+
+}
+.icon-button{
+  width: 70px;         
+  display: block;        
+  margin: 10px; 
+  margin-left: 550px;
+  margin-top: -10px;  
+}
+.icon-back{
+  width: 70px;         
+  display: block;        
+  margin: 10px; 
+  margin-left: -40px;  
+  margin-top: -30px;
+}
 
 .titulo{
-    font-size: 1rem;
-    font-weight: 500;
-    margin: 0 auto;
+    background: #1e3a8a;
+    color: white;
     text-align: center;
-    color:black;
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 0px 20px;
+    border-radius: 1rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    margin-top: 0px;
+    margin-right: 500px;
+    margin-left: 500px;
 }
 
 .text{
