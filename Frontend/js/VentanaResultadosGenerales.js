@@ -11,8 +11,6 @@ fetch(API_URL)
     })
     .then(data => {
         if (!Array.isArray(data) || data.length === 0) return;
-
-        
     })
     .catch({
 
@@ -43,12 +41,20 @@ function CargarTablaResultadosGenerales(url) {
                     <td>${item.promedios[3] ?? ''}</td>
                     <td>${item.promedios[4] ?? ''}</td>
                     <td>${item.promedios[5] ?? ''}</td>
-                    <td>${item.promedios[6] ?? ''}</td>
                     <td>${total}</td>
-                    <td></td>
+                    <td>
+                        <button class="ver-mas-btn" data-id="${item.id}">Ver más</button>
+                    </td>
                 `;
                 tbody.appendChild(fila);
                 console.timeEnd("Cargando último resultado");
+            });
+
+            tbody.querySelectorAll('.ver-mas-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    window.location.href = `VentanaVerMas.html?id=${id}`;
+                });
             });
         })
         .catch(err => {
