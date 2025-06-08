@@ -542,7 +542,7 @@ class RegistrarPuntuacionIndividualView(APIView):
             if len(salto.puntajes) == len(competencia.jueces):
                 salto.calcular_promedio(dificultad)
                 salto.save()
-                ListarYActualizarRankingView().get(request)  # Actualizar ranking después de calcular el promedio
+                ActualizarRankingView().get(request)  # Actualizar ranking después de calcular el promedio
                 return Response({"mensaje": "Puntaje registrado. Promedio calculado y ranking actualizado."}, status=201)
             else:
                 salto.save()
