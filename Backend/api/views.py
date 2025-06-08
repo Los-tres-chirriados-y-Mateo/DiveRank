@@ -542,7 +542,7 @@ class RegistrarPuntuacionIndividualView(APIView):
             if len(salto.puntajes) == len(competencia.jueces):
                 salto.calcular_promedio(dificultad)
                 salto.save()
-                ListarYActualizarRankingView().get(request)  # Actualizar ranking después de calcular el promedio
+                ActualizarRankingView().get(request)  # Actualizar ranking después de calcular el promedio
                 return Response({"mensaje": "Puntaje registrado. Promedio calculado y ranking actualizado."}, status=201)
             else:
                 salto.save()
@@ -629,7 +629,7 @@ class ActualizarSaltosView(APIView):
 
         return Response({"mensaje": "Saltos actualizados"}, status=status.HTTP_200_OK)
     
-class ListarYActualizarRankingView(APIView):
+class ActualizarRankingView(APIView):
     def get(self, request):
         datos = {}
         resultados = []
@@ -651,6 +651,12 @@ class ListarYActualizarRankingView(APIView):
 
         ranking = Ranking.objects.order_by('posicion')
         
+        serializer = RankingSerializer(ranking, many=True)
+        return Response(serializer.data, status=200)
+
+class ListarRankingView(APIView):
+    def get(self, request):
+        ranking = Ranking.objects.order_by('posicion')
         serializer = RankingSerializer(ranking, many=True)
         return Response(serializer.data, status=200)
             

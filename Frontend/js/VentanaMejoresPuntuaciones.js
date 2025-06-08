@@ -44,12 +44,12 @@ fetch(API_URL)
 
                 // Calculamos el promedio general
                 const total = item.promedios.reduce((a, b) => a + b, 0);
-                const promedio = (total / item.promedios.length).toFixed(2);
+                
 
                 fila.innerHTML = `
                     <td>${item.posicion}</td>
                     <td>${item.deportistaNombre}</td>
-                    <td>${promedio}</td>
+                    <td>${total}</td>
                 `;
                 tbody.appendChild(fila);
                 console.timeEnd("Cargando último salto");
@@ -62,5 +62,5 @@ fetch(API_URL)
 }
 
 // Llama esta función cuando cargue tu página o en el momento que necesites
-cargarTablaRanking('http://127.0.0.1:8000/listar_y_actualizar_rankin/');
+cargarTablaRanking('http://127.0.0.1:8000/listar_ranking/');
 
