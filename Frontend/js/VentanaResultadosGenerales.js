@@ -1,7 +1,17 @@
 // Datos de ejemplo (puedes obtenerlos de un backend si lo deseas)
-const resultados = [
-    
-];
+let resultados = [];
+
+async function obtenerResultados() {
+    try{
+        const response = await fetch('http://127.0.0.1:8000/listar_ranking/')
+        if (!response.ok) throw new Error('Error al obtener resultados');
+        resultados = await response.json();
+        crearTablaResultados();
+    } catch (error) {
+        console.error(error);
+        document.getElementById('tabla-contenedor').innerHTML = '<p>Error al cargar los resultados.</p>';
+    }
+}
 
 function crearTablaResultados() {
     const contenedor = document.getElementById('tabla-contenedor');
