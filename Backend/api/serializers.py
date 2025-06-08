@@ -78,8 +78,15 @@ class RolLoginSerializer(serializers.Serializer):
     password = serializers.CharField()
 
 class PuntuacionSerializer(serializers.Serializer):
-    juezId = serializers.CharField()
-    puntaje = serializers.FloatField(min_value=0.0, max_value=10.0)
+    juezId = serializers.CharField(source='juez.id')
+    puntaje = serializers.FloatField(min_value=-2.0, max_value=10.0)
+
+class PuntajeSaltoSerializer(serializers.Serializer):
+    deportista = serializers.CharField(source='deportista.id')
+    numeroSalto = serializers.IntegerField()
+    competencia = serializers.CharField(source='competencia.id', allow_null=True)
+    puntajes = PuntuacionSerializer(many=True)
+    promedio = serializers.FloatField()
 
 class PuntuacionIndividualSerializer(serializers.Serializer):
     deportista_id = serializers.CharField()
