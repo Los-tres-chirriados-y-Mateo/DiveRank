@@ -731,3 +731,19 @@ class BuscarAdminPorNombreView(APIView):
             serializer = AdminSerializer(admin)
             return Response(serializer.data, status=200)
         return Response({"error": "Admin no encontrado"}, status=404)
+
+class BuscarIdJuezPorNombreView(APIView):
+    def get(self, request, nombre):
+        juez = Jurado.objects(nombre=nombre).first()
+        if juez:
+            idJuez = str(juez.id)
+            return Response({"id": idJuez}, status=200)
+        return Response({"error": "Juez no encontrado"}, status=404)
+
+class BuscarIdDeportistaPorNombreView(APIView):
+    def get(self, request, nombre):
+        deportista = Deportista.objects(nombre=nombre).first()
+        if deportista:
+            idDeportista = str(deportista.id)
+            return Response({"id": idDeportista}, status=200)
+        return Response({"error": "Deportista no encontrado"}, status=404)

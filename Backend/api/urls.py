@@ -33,6 +33,8 @@ from .views import (
     CrearAdministradorView,
     BuscarAdminPorNombreView,
     ListarPuntajesView,
+    BuscarIdDeportistaPorNombreView,
+    BuscarIdJuezPorNombreView,
 )
 
 urlpatterns = [
@@ -72,5 +74,7 @@ urlpatterns = [
     path('crear_administrador/', CrearAdministradorView.as_view(), name='crear_administrador'),
     path('buscar_admin_por_nombre/<str:nombre>/', BuscarAdminPorNombreView.as_view(), name='buscar_admin_por_nombre'),
     path('listar_puntajes/', ListarPuntajesView.as_view(), name='listar_puntajes'),
+    path('id_deportista/<str:nombre>/', BuscarIdDeportistaPorNombreView.as_view(), name='buscar_id_deportista_por_nombre'),
+    path('id_juez/<str:nombre>/', BuscarIdJuezPorNombreView.as_view(), name='buscar_id_juez_por_nombre'),
 ]
 
