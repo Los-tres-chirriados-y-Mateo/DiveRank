@@ -659,6 +659,12 @@ class ListarRankingView(APIView):
         ranking = Ranking.objects.order_by('posicion')
         serializer = RankingSerializer(ranking, many=True)
         return Response(serializer.data, status=200)
+
+class ListarPuntajesView(APIView):
+    def get(self, request):
+        puntajes = PuntajeSalto.objects.all()
+        serializer = PuntuacionSerializer(puntajes, many=True)
+        return Response(serializer.data, status=200)
             
 class ListaAdministradoresView(APIView):
     def get(self, request):
