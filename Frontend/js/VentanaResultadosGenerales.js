@@ -33,6 +33,7 @@ function CargarTablaResultadosGenerales(url) {
 
                 const total = item.promedios.reduce((a, b) => a + b, 0);
 
+                
                 fila.innerHTML = `
                     <td>${item.posicion}</td>
                     <td>${item.deportistaNombre}</td>
