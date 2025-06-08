@@ -26,10 +26,10 @@ fetch(API_URL)
     })
     .catch(error => {
         console.error("Error:", error);
-    });
+});
 
 
-    function cargarTablaRanking(url) {
+function cargarTablaRanking(url) {
     fetch(url)
         .then(res => {
             if (!res.ok) throw new Error("Error al obtener datos del ranking");
