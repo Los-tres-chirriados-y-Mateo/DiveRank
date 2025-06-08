@@ -43,6 +43,7 @@ class DeportistaSerializer(serializers.Serializer):
     id = serializers.CharField(read_only=True)
     nombre = serializers.CharField()
     saltos = SaltoSerializer(many=True)
+    orden = serializers.IntegerField()
 
 class DeportistaCrearSerializer(serializers.Serializer):
     nombre = serializers.CharField()
