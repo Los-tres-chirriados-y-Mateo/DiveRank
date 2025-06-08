@@ -1,11 +1,13 @@
 const credencial = localStorage.getItem("juez_password");
 console.log(credencial);
 const btnCalificar = document.querySelector("#SubmitRating");
-console.log(localStorage.getItem("iActual"));
+console.log(localStorage.getItem("iActual")); 
 
-if (localStorage.getItem("iActual") === null) {
-    localStorage.setItem("iActual", 1);
-}
+
+
+
+
+
 
 
 
@@ -51,17 +53,31 @@ function cargarCompetidores() {
             throw new Error("Error obteniendo competidores");
         }
     })
-    .then(data =>{
-        
-        data.forEach(org => {
-
-            if (org.orden == localStorage.getItem("iActual")) {
-                document.querySelector("#participantList").textContent = org.nombre;
+    .then(data => {
+    let iActual = parseInt(localStorage.getItem("iActual"));
+    
+    if (isNaN(iActual) || iActual > data.length) {
+        if (iActual > data.length) {
+            if(localStorage.getItem("JActual") != 6) {
+                localStorage.setItem("JActual", parseInt(localStorage.getItem("JActual"))+1);
             }
+            else {
+                localStorage.setItem("JActual", 0);
+            }
+            
         }
-    )
-})
+        iActual = 1;
+        localStorage.setItem("iActual", iActual);
+    }
 
+    data.forEach(org => {
+        if (org.orden == iActual) {
+            document.querySelector("#participantList").textContent = org.nombre;
+            document.querySelector("#numsalto").textContent = localStorage.getItem("JActual");
+            document.querySelector("#dificultadsalto").textContent = org.orden;
+        }
+    });
+});
             
         
     
@@ -74,4 +90,5 @@ btnCalificar.addEventListener("click", () => {
     iActual++; 
     localStorage.setItem("iActual", iActual.toString()); 
     cargarCompetidores(); 
+    console.log(localStorage.getItem("JActual"));
 });
