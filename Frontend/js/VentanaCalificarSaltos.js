@@ -1,5 +1,14 @@
 const credencial = localStorage.getItem("juez_password");
 console.log(credencial);
+const btnCalificar = document.querySelector("#SubmitRating");
+console.log(localStorage.getItem("iActual"));
+
+if (localStorage.getItem("iActual") === null) {
+    localStorage.setItem("iActual", 1);
+}
+
+
+
 
 
 function nombreJuez() {
@@ -29,3 +38,40 @@ function nombreJuez() {
 }
 
 nombreJuez();
+
+
+function cargarCompetidores() {
+    fetch("http://127.0.0.1:8000/listar_deportistas/")
+    .then(res => {
+
+        if (res.status === 200) {
+            return res.json();
+            
+        } else {
+            throw new Error("Error obteniendo competidores");
+        }
+    })
+    .then(data =>{
+        
+        data.forEach(org => {
+
+            if (org.orden == localStorage.getItem("iActual")) {
+                document.querySelector("#participantList").textContent = org.nombre;
+            }
+        }
+    )
+})
+
+            
+        
+    
+}
+
+cargarCompetidores();
+
+btnCalificar.addEventListener("click", () => {
+    let iActual = parseInt(localStorage.getItem("iActual") || "0"); 
+    iActual++; 
+    localStorage.setItem("iActual", iActual.toString()); 
+    cargarCompetidores(); 
+});
