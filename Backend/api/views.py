@@ -629,7 +629,7 @@ class ActualizarSaltosView(APIView):
 
         return Response({"mensaje": "Saltos actualizados"}, status=status.HTTP_200_OK)
     
-class ListarYActualizarRankingView(APIView):
+class ActualizarRankingView(APIView):
     def get(self, request):
         datos = {}
         resultados = []
@@ -651,6 +651,12 @@ class ListarYActualizarRankingView(APIView):
 
         ranking = Ranking.objects.order_by('posicion')
         
+        serializer = RankingSerializer(ranking, many=True)
+        return Response(serializer.data, status=200)
+
+class ListarRankingView(APIView):
+    def get(self, request):
+        ranking = Ranking.objects.order_by('posicion')
         serializer = RankingSerializer(ranking, many=True)
         return Response(serializer.data, status=200)
             
