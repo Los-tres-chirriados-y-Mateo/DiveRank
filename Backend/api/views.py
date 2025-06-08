@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Admin, Jurado, Organizador, Competencia, Deportista, Salto, Puntuacion, PuntajeSalto, Ranking
-from .serializers import AdminLoginSerializer, RolLoginSerializer, CrearCompetenciaSerializer, CrearJuezSerializer, CrearOrganizadorSerializer, DeportistaCrearSerializer, PuntuacionIndividualSerializer, PuntuacionSerializer, JuradoSerializer, OrganizadorSerializer, AdminSerializer, DeportistaCrearSerializer, RankingSerializer, CrearAdministradorSerializer
+from .serializers import AdminLoginSerializer, RolLoginSerializer, CrearCompetenciaSerializer, CrearJuezSerializer, CrearOrganizadorSerializer, DeportistaCrearSerializer, PuntuacionIndividualSerializer, PuntuacionSerializer, JuradoSerializer, OrganizadorSerializer, AdminSerializer, DeportistaCrearSerializer, RankingSerializer, CrearAdministradorSerializer, DeportistaSerializer
 
 class AdminLoginView(APIView):
     def post(self, request):
@@ -449,11 +449,8 @@ class BuscarOrganizadorView(APIView):
 
 class ListarDeportistasView(APIView):
     def get(self, request):
-
-        deportista = Deportista.objects.all()
-        serializer = DeportistaCrearSerializer(deportista, many=True)
-
-                
+        deportistas = Deportista.objects.all()
+        serializer = DeportistaSerializer(deportistas, many=True)
         return Response(serializer.data, status=200)
         
 class ListaOrganizadoresView(APIView):
