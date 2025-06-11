@@ -1,12 +1,14 @@
-
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VentanaAdministrador</title>
+  <title>Administrador</title>
   <link rel="stylesheet" href="CSS/VentanaAdmin.css" />
+  <link rel="icon" href="Images/Logo DiveRank.png">
 </head>
+
 <body>
   <header class="header">
     <div class="user-info">
@@ -17,7 +19,7 @@
 
       </div>
     </div>
-    
+
     <div class="home-icon">
       <a href="login.html" class="home-icon" role="button" aria-label="Ir al inicio">
         <img src="Images/home.png" alt="Inicio">
@@ -32,28 +34,28 @@
 
         <table id="tablaOrganizadores">
           <tbody id="cuerpoTablaOrganizadores">
-            
+
           </tbody>
         </table>
 
       </div>
-  
+
     </div>
 
     <div class="jueces-container" id="jueces-container">
       <h2 class="titulo">Jueces</h2>
-      
+
       <div class="listaJueces">
 
         <table id="listaJueces">
           <tbody id="cuerpoTablaJueces">
-            
+
           </tbody>
         </table>
 
       </div>
-      
-  
+
+
     </div>
     <button id="openModalBtn" class="btn-crear">Crear un nuevo usuario</button>
   </main>
@@ -66,7 +68,7 @@
       <h1 class="subtitulo2">Cedula:</h1>
       <label class="cedula"><input id="cedula" type="text"></label>
       <h1 class="subtitulo3">Rol:</h1>
-      <label class="rol"> 
+      <label class="rol">
         <select id="rolRegistrar">
           <option value="default"></option>
           <option value="jurado">Juez</option>

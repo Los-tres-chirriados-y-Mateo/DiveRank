@@ -1,52 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ventana2Organizador</title>
-    <link rel="stylesheet" href="CSS/Ventana2Organizador.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ventana2Organizador</title>
+  <link rel="stylesheet" href="CSS/Ventana2Organizador.css" />
+  <link rel="icon" href="Images/Logo DiveRank.png">
 </head>
+
 <body>
-    <header class="header">
-        <div class="user-info">
-            <div class="user-icon"></div>
-            <div class="user-details">
-                <div class="username" id="username"></div>
-                <div class="role" id="role"></div>
-            </div>
-        </div>
-        <div class="home-icon">
-          <a href="login.html" class="home-icon" role="button" aria-label="Ir al inicio">
-            <img src="Images/home.png" alt="Inicio">
-          </a>
-        </div>
-    </header>
-
-    <div class="titulo">
-        <h1>Dificultad de saltos</h1>
+  <header class="header">
+    <div class="user-info">
+      <div class="user-icon"></div>
+      <div class="user-details">
+        <div class="username" id="username"></div>
+        <div class="role" id="role"></div>
+      </div>
     </div>
-    
-    
-
-    <div class="contenedorDificultad" id="contenedorDificultad">
-        <table id="tabla-competidor" class="tabla-competidor">
-            <thead>
-              <tr>
-                <th>N° de salto</th>
-                <th>Nombre de salto</th>
-                <th>Dificultad</th>
-              </tr>
-            </thead>
-            <tbody>
-    
-            </tbody>
-          </table>
-
-          <button class="guardar" id="guardar">Guardar</button>
-          <div class="nombre" id="nombre"></div>
-
+    <div class="home-icon">
+      <a href="login.html" class="home-icon" role="button" aria-label="Ir al inicio">
+        <img src="Images/home.png" alt="Inicio">
+      </a>
     </div>
-    
+  </header>
+
+  <div class="titulo">
+    <h1>Dificultad de saltos</h1>
+  </div>
+
+
+
+  <div class="contenedorDificultad" id="contenedorDificultad">
+    <table id="tabla-competidor" class="tabla-competidor">
+      <thead>
+        <tr>
+          <th>N° de salto</th>
+          <th>Nombre de salto</th>
+          <th>Dificultad</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+
+    <button class="guardar" id="guardar">Guardar</button>
+    <div class="nombre" id="nombre"></div>
+
+  </div>
+
 </body>
 <script src="js/Ventana2Organizador.js"></script>
+
 </html>
