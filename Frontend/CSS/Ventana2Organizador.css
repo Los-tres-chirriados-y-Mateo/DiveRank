@@ -17,6 +17,11 @@
     overflow-y: auto;
     max-height: 250px;
     display: flex;
+    
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+
     justify-content: center;
     margin-top: 2%;
     margin-left: 20%;
