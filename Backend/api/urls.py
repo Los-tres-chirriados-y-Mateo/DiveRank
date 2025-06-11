@@ -35,6 +35,7 @@ from .views import (
     ListarPuntajesView,
     BuscarIdDeportistaPorNombreView,
     BuscarIdJuezPorNombreView,
+    UltimoParticipanteView
 )
 
 urlpatterns = [
@@ -76,5 +77,6 @@ urlpatterns = [
     path('listar_puntajes/', ListarPuntajesView.as_view(), name='listar_puntajes'),
     path('id_deportista/<str:nombre>/', BuscarIdDeportistaPorNombreView.as_view(), name='buscar_id_deportista_por_nombre'),
     path('id_juez/<str:nombre>/', BuscarIdJuezPorNombreView.as_view(), name='buscar_id_juez_por_nombre'),
+    path('ultimo_participante/', UltimoParticipanteView.as_view(), name='ultimo_participante'),
 ]
 
