@@ -1,6 +1,7 @@
 const credencial = localStorage.getItem("juez_password");
 console.log(credencial);
 const btnCalificar = document.querySelector("#SubmitRating");
+const btnDescalificar = document.querySelector("#SubmitDisqualify");
 console.log(localStorage.getItem("iActual")); 
 
 async function idDeportista(deportistaNombre) {
@@ -114,6 +115,43 @@ btnCalificar.addEventListener("click", async () => {
             "deportista_id": deportistaId,
             "juez_id": localStorage.getItem("IDJuez"),
             "puntaje": document.querySelector("#ratingInput").value,
+        })
+    })
+    .then(res => {
+        if (!res.ok) throw new Error("Error registrando puntuación");
+        return res.json();
+    })
+    .then(data => {
+        console.log("Puntuación registrada:", data);
+    })
+    .catch(err => {
+        console.error("Error:", err);
+    });
+});
+
+
+
+idDeportista(localStorage.getItem("NombreDeportista"))
+
+
+btnDescalificar.addEventListener("click", async () => {
+    let iActual = parseInt(localStorage.getItem("iActual") || "0"); 
+    iActual++; 
+    localStorage.setItem("iActual", iActual.toString()); 
+    cargarCompetidores(); 
+    console.log(localStorage.getItem("JActual"));
+
+    const deportistaId = await idDeportista(localStorage.getItem("NombreDeportista")); // aquí sí esperamos
+
+    fetch("http://127.0.0.1:8000/registrar/puntuacion_individual/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body:  JSON.stringify({
+            "deportista_id": deportistaId,
+            "juez_id": localStorage.getItem("IDJuez"),
+            "puntaje": -1, // Asignamos -1 para indicar descalificación
         })
     })
     .then(res => {

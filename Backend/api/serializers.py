@@ -85,7 +85,7 @@ class PuntuacionSerializer(serializers.Serializer):
 class PuntuacionIndividualSerializer(serializers.Serializer):
     deportista_id = serializers.CharField()
     juez_id = serializers.CharField()
-    puntaje = serializers.FloatField(min_value=0.0, max_value=10.0)
+    puntaje = serializers.FloatField(min_value=-1.0, max_value=10.0)
 
 class RankingSerializer(serializers.Serializer):
     deportistaNombre = serializers.CharField(source='deportista.nombre')
