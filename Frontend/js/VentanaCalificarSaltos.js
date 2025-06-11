@@ -1,171 +1,118 @@
 const credencial = localStorage.getItem("juez_password");
-console.log(credencial);
 const btnCalificar = document.querySelector("#SubmitRating");
 const btnDescalificar = document.querySelector("#SubmitDisqualify");
-console.log(localStorage.getItem("iActual")); 
 
 async function idDeportista(deportistaNombre) {
     const res = await fetch(`http://127.0.0.1:8000/id_deportista/${encodeURIComponent(deportistaNombre)}/`);
     const data = await res.json();
     return data.id;
-};
-
-
-
-
-
-
-
-
-
+}
 
 function nombreJuez() {
     fetch('http://127.0.0.1:8000/buscar_juez_por_credencial/', {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            "credencial": credencial,
-        }),
-})
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ "credencial": credencial })
+    })
     .then(res => {
-        if (res.status === 200) {
-            return res.json();
-        } else {
-            throw new Error("Error obteniendo juez");
-        }
+        if (res.status === 200) return res.json();
+        else throw new Error("Error obteniendo juez");
     })
     .then(data => {
         document.querySelector("#username").textContent = data.nombre;
-        localStorage.setItem("IDJuez", data.id);
-        
+        sessionStorage.setItem("IDJuez", data.id);
         console.log("Juez encontrado:", data.nombre);
+        cargarCompetidores(); // Después de tener el juez
     })
-    .catch(err => {
-        console.error("Error:", err);
-    });
+    .catch(err => console.error("Error:", err));
 }
 
 nombreJuez();
 
-
 function cargarCompetidores() {
+    const juezId = sessionStorage.getItem("IDJuez");
+
     fetch("http://127.0.0.1:8000/listar_deportistas/")
-    .then(res => {
+        .then(res => {
+            if (res.status === 200) return res.json();
+            else throw new Error("Error obteniendo competidores");
+        })
+        .then(data => {
+            let iActual = parseInt(sessionStorage.getItem(`iActual_${juezId}`));
+            let JActual = parseInt(sessionStorage.getItem(`JActual_${juezId}`));
 
-        if (res.status === 200) {
-            return res.json();
-            
-        } else {
-            throw new Error("Error obteniendo competidores");
-        }
-    })
-    .then(data => {
-    let iActual = parseInt(localStorage.getItem("iActual"));
-    
-    if (isNaN(iActual) || iActual > data.length) {
-        if (iActual > data.length) {
-            if(localStorage.getItem("JActual") < 5) {
-                localStorage.setItem("JActual", parseInt(localStorage.getItem("JActual"))+1);
-            }
-            else {
-                localStorage.setItem("JActual", 0);
-            }
-            
-        }
-        iActual = 1;
-        localStorage.setItem("iActual", iActual);
-        
-    }
-    console.log(data);
+            if (isNaN(iActual)) iActual = 1;
+            if (isNaN(JActual)) JActual = 0;
 
-    data.forEach(org => {
-        if (org.orden == iActual) {
-            localStorage.setItem("NombreDeportista", org.nombre);
-            document.querySelector("#participantList").textContent = org.nombre;
-            document.querySelector("#numsalto").textContent = parseInt(localStorage.getItem("JActual"))+1;
-            document.querySelector("#dificultadsalto").textContent = org.saltos[localStorage.getItem("JActual")].dificultad;
-            
-        }
-    });
-});
-            
-        
-    
+            if (iActual > data.length) {
+                JActual = (JActual < 5) ? JActual + 1 : 0;
+                iActual = 1;
+            }
+
+            sessionStorage.setItem(`iActual_${juezId}`, iActual);
+            sessionStorage.setItem(`JActual_${juezId}`, JActual);
+
+            const participante = data.find(org => org.orden === iActual);
+            if (participante) {
+                sessionStorage.setItem("NombreDeportista", participante.nombre);
+                document.querySelector("#participantList").textContent = participante.nombre;
+                document.querySelector("#numsalto").textContent = JActual + 1;
+                document.querySelector("#dificultadsalto").textContent = participante.saltos[JActual].dificultad;
+            }
+        })
+        .catch(err => console.error("Error:", err));
 }
 
-cargarCompetidores();
-
 btnCalificar.addEventListener("click", async () => {
-    let iActual = parseInt(localStorage.getItem("iActual") || "0"); 
-    iActual++; 
-    localStorage.setItem("iActual", iActual.toString()); 
-    cargarCompetidores(); 
-    console.log(localStorage.getItem("JActual"));
+    const juezId = sessionStorage.getItem("IDJuez");
+    let iActual = parseInt(sessionStorage.getItem(`iActual_${juezId}`) || "0");
+    iActual++;
+    sessionStorage.setItem(`iActual_${juezId}`, iActual.toString());
 
-    const deportistaId = await idDeportista(localStorage.getItem("NombreDeportista")); // aquí sí esperamos
+    cargarCompetidores();
+
+    const deportistaId = await idDeportista(sessionStorage.getItem("NombreDeportista"));
 
     fetch("http://127.0.0.1:8000/registrar/puntuacion_individual/", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body:  JSON.stringify({
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
             "deportista_id": deportistaId,
-            "juez_id": localStorage.getItem("IDJuez"),
-            "puntaje": document.querySelector("#ratingInput").value,
+            "juez_id": juezId,
+            "puntaje": document.querySelector("#ratingInput").value
         })
     })
     .then(res => {
         if (!res.ok) throw new Error("Error registrando puntuación");
         return res.json();
     })
-    .then(data => {
-        console.log("Puntuación registrada:", data);
-    })
-    .catch(err => {
-        console.error("Error:", err);
-    });
+    .then(data => console.log("Puntuación registrada:", data))
+    .catch(err => console.error("Error:", err));
 });
-
-
-
-idDeportista(localStorage.getItem("NombreDeportista"))
-
 
 btnDescalificar.addEventListener("click", async () => {
-    let iActual = parseInt(localStorage.getItem("iActual") || "0"); 
-    iActual++; 
-    localStorage.setItem("iActual", iActual.toString()); 
-    cargarCompetidores(); 
-    console.log(localStorage.getItem("JActual"));
+    const juezId = sessionStorage.getItem("IDJuez");
+    let iActual = parseInt(sessionStorage.getItem(`iActual_${juezId}`) || "0");
+    iActual++;
+    sessionStorage.setItem(`iActual_${juezId}`, iActual.toString());
 
-    const deportistaId = await idDeportista(localStorage.getItem("NombreDeportista")); // aquí sí esperamos
+    cargarCompetidores();
+
+    const deportistaId = await idDeportista(sessionStorage.getItem("NombreDeportista"));
 
     fetch("http://127.0.0.1:8000/registrar/puntuacion_individual/", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body:  JSON.stringify({
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
             "deportista_id": deportistaId,
-            "juez_id": localStorage.getItem("IDJuez"),
-            "puntaje": -1, // Asignamos -1 para indicar descalificación
+            "juez_id": juezId,
+            "puntaje": -1
         })
     })
     .then(res => {
         if (!res.ok) throw new Error("Error registrando puntuación");
         return res.json();
     })
-    .then(data => {
-        console.log("Puntuación registrada:", data);
-    })
-    .catch(err => {
-        console.error("Error:", err);
-    });
+    .then(data => console.log("Puntuación registrada (descalificado):", data))
+    .catch(err => console.error("Error:", err));
 });
-
-
-
-idDeportista(localStorage.getItem("NombreDeportista"))
