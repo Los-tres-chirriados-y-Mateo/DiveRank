@@ -2,8 +2,9 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from mongoengine.queryset.visitor import Q
 from .models import Admin, Jurado, Organizador, Competencia, Deportista, Salto, Puntuacion, PuntajeSalto, Ranking
-from .serializers import AdminLoginSerializer, RolLoginSerializer, CrearCompetenciaSerializer, CrearJuezSerializer, CrearOrganizadorSerializer, DeportistaCrearSerializer, PuntuacionIndividualSerializer, PuntuacionSerializer, JuradoSerializer, OrganizadorSerializer, AdminSerializer, DeportistaCrearSerializer, RankingSerializer, CrearAdministradorSerializer
+from .serializers import AdminLoginSerializer, RolLoginSerializer, CrearCompetenciaSerializer, CrearJuezSerializer, CrearOrganizadorSerializer, DeportistaCrearSerializer, PuntuacionIndividualSerializer, PuntuacionSerializer, JuradoSerializer, OrganizadorSerializer, AdminSerializer, DeportistaCrearSerializer, RankingSerializer, CrearAdministradorSerializer, DeportistaSerializer
 
 class AdminLoginView(APIView):
     def post(self, request):
@@ -449,11 +450,8 @@ class BuscarOrganizadorView(APIView):
 
 class ListarDeportistasView(APIView):
     def get(self, request):
-
-        deportista = Deportista.objects.all()
-        serializer = DeportistaCrearSerializer(deportista, many=True)
-
-                
+        deportistas = Deportista.objects.all()
+        serializer = DeportistaSerializer(deportistas, many=True)
         return Response(serializer.data, status=200)
         
 class ListaOrganizadoresView(APIView):
@@ -637,7 +635,8 @@ class ActualizarRankingView(APIView):
             idDeportista = str(salto.deportista.id)
             if idDeportista not in datos:
                 datos[idDeportista] = []
-            datos[idDeportista].append(salto.promedio)
+            promedio = 0 if salto.promedio == -1 else salto.promedio
+            datos[idDeportista].append(promedio)
         for idDeportista, promedio in datos.items():
             deportista = Deportista.objects.get(id = idDeportista)
             totalPromedio = sum(promedio)
@@ -747,3 +746,51 @@ class BuscarIdDeportistaPorNombreView(APIView):
             idDeportista = str(deportista.id)
             return Response({"id": idDeportista}, status=200)
         return Response({"error": "Deportista no encontrado"}, status=404)
+
+class UltimoParticipanteView(APIView):
+    def get(self, request):
+        competencia = Competencia.objects.first()
+        if not competencia:
+            return Response({"error": "No hay competencia activa"}, status=404)
+
+        jueces_requeridos = len(competencia.jueces)
+        saltos_completos = PuntajeSalto.objects(competencia=competencia, puntajes__size=jueces_requeridos).order_by('-id')
+
+
+        if not saltos_completos:
+            return Response({"error": "No hay saltos completos aún"}, status=404)
+
+        # Salto más reciente
+        ultimo_salto = saltos_completos.first()
+        deportista = ultimo_salto.deportista
+
+        # Obtener todos los saltos de ese deportista
+        saltos_de_deportista = PuntajeSalto.objects(deportista=deportista, competencia=competencia)
+
+        total = 0
+        detalle = []
+        for salto in saltos_de_deportista:
+            puntaje = 0 if salto.promedio == -1 else salto.promedio
+            total += puntaje
+            detalle.append({
+                "numero_salto": salto.numeroSalto,
+                "puntaje": salto.promedio
+            })
+
+        # Buscar su posición en el ranking
+        ranking = Ranking.objects(posicion__exists=True).order_by('posicion')
+        posicion = next(
+            (r.posicion for r in ranking if r.deportista.id == deportista.id),
+            None
+        )
+
+        return Response({
+            "deportista": deportista.nombre,
+            "total_puntaje": total,
+            "posicion_en_ranking": posicion,
+            "saltos": detalle,
+            "ultimo_salto": {
+                "numero_salto": ultimo_salto.numeroSalto,
+                "puntaje": ultimo_salto.promedio
+            }
+        }, status=200)
