@@ -1,61 +1,54 @@
 <!DOCTYPE html>
 <html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Resultados Generales</title>
-    <link rel="stylesheet" href="CSS/VentanaResultadosGenerales.css">
-    <link rel="icon" href="Images/Logo DiveRank.png">
-</head>
+    <link rel="stylesheet" href="CSS/main.css" />
+    <link rel="stylesheet" href="CSS/VentanaResultadosGenerales.css" />
+    <link rel="icon" href="Images/Logo DiveRank.png" />
+  </head>
 
-<body>
+  <body>
     <header class="header">
-        <div class="user-info">
-            <div class="user-icon"></div>
-            <div class="user-details">
-                <div class="username" id="username"></div>
-                <div class="role" id="role"></div>
-            </div>
+      <div class="user-info">
+        <div class="user-icon"></div>
+        <div class="user-details">
+          <div class="username" id="username"></div>
+          <div class="role" id="role"></div>
         </div>
-
-        <div class="titulo">
-            <h1>Resultados Generales</h1>
-        </div>
-
-        <div class="home-icon">
-            <a href="login.html" class="home-icon" role="button" aria-label="Ir al inicio">
-                <img src="Images/home.png" alt="Inicio">
-            </a>
-        </div>
+      </div>
+      <div class="titulo">
+        <h1>Resultados Generales</h1>
+      </div>
+      <div class="home-icon">
+        <a href="login.html" class="home-icon" role="button" aria-label="Ir al inicio">
+          <img src="Images/home.png" alt="Inicio" />
+        </a>
+      </div>
     </header>
 
     <main>
-        <div class="contenedorDificultad" id="tabla-contenedor">
-            <table class="tabla-competidor">
-                <thead>
-                    <tr>
-                        <th>Puesto</th>
-                        <th>Nombre</th>
-                        <th>Salto 1</th>
-                        <th>Salto 2</th>
-                        <th>Salto 3</th>
-                        <th>Salto 4</th>
-                        <th>Salto 5</th>
-                        <th>Salto 6</th>
-                        <th>Acumulado</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody id="GeneralResultsBody">
-
-                </tbody>
-            </table>
-        </div>
-
+      <div class="contenedorDificultad" id="tabla-contenedor">
+        <table class="tabla-competidor">
+          <thead>
+            <tr>
+              <th>Puesto</th>
+              <th>Nombre</th>
+              <th>Salto 1</th>
+              <th>Salto 2</th>
+              <th>Salto 3</th>
+              <th>Salto 4</th>
+              <th>Salto 5</th>
+              <th>Salto 6</th>
+              <th>Acumulado</th>
+            </tr>
+          </thead>
+          <tbody id="GeneralResultsBody"></tbody>
+        </table>
+      </div>
     </main>
 
     <script src="js/VentanaResultadosGenerales.js"></script>
-</body>
-
+  </body>
 </html>

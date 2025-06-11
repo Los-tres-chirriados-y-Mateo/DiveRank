@@ -1,53 +1,7 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #78aebe;
-  color: #fff;
-}
-
-.header {
-    background-color: #78aebe;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0px 30px;
-    margin-top: 25px;
-    
-}
-
-.user-info {
-    display: flex;
-    align-items: center;
-}
-
-
-.user-icon {
- width: 100px;
-  height: 100px;
-  border-radius: 30%;
-  background-size: 160%;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.user-name {
-    font-size: 30px;
-    font-weight: 500;
-    margin-bottom: -20px;
-    margin-left: 50px;
-}
-
 .icon-button {
     width: 70px;         
     display: block;        
     margin: 10px;   
-}
-
-.role {
-    font-size: 10px;
-    font-weight: 500;
-    margin-left: 90px;
 }
 
 .main {

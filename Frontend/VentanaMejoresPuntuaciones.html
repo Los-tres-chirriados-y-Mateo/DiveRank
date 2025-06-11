@@ -1,69 +1,63 @@
 <!DOCTYPE html>
 <html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mejores Puntuaciones</title>
-    <link rel="stylesheet" href="CSS/VentanaMejoresPuntuaciones.css">
-    <link rel="icon" href="Images/Logo DiveRank.png">
-</head>
+    <link rel="stylesheet" href="CSS/main.css" />
+    <link rel="stylesheet" href="CSS/VentanaMejoresPuntuaciones.css" />
+    <link rel="icon" href="Images/Logo DiveRank.png" />
+  </head>
 
-<body>
+  <body>
     <header class="header">
-        <div class="user-info">
-            <div class="user-icon"></div>
-            <div class="user-details">
-                <div class="username" id="username"></div>
-                <div class="role" id="role"></div>
-            </div>
+      <div class="user-info">
+        <div class="user-icon"></div>
+        <div class="user-details">
+          <div class="username" id="username"></div>
+          <div class="role" id="role"></div>
         </div>
-        <div class="titulo">
-            <h1>TOP 5: Mejores Resultados</h1>
-        </div>
-        <div class="home-icon">
-            <a href="login.html" class="home-icon" role="button" aria-label="Ir al inicio">
-                <img src="Images/home.png" alt="Inicio">
-            </a>
-        </div>
+      </div>
+      <div class="titulo">
+        <h1>TOP 5: Mejores Resultados</h1>
+      </div>
+      <div class="home-icon">
+        <a href="login.html" class="home-icon" role="button" aria-label="Ir al inicio">
+          <img src="Images/home.png" alt="Inicio" />
+        </a>
+      </div>
     </header>
 
-    <div class="contenedorDificultad">
+    <main>
+      <div class="contenedorDificultad">
         <table class="tabla-competidor">
-            <thead>
-                <tr>
-                    <th>Posición</th>
-                    <th>Nombre</th>
-                    <th>Puntuación</th>
-                </tr>
-            </thead>
-            <tbody id="scoresTableBody">
-
-            </tbody>
+          <thead>
+            <tr>
+              <th>Posición</th>
+              <th>Nombre</th>
+              <th>Puntuación</th>
+            </tr>
+          </thead>
+          <tbody id="scoresTableBody"></tbody>
         </table>
-    </div>
-
-    <div class="text">
+      </div>
+      <div class="text">
         <h1>Ultimo Salto</h1>
-    </div>
-
-    <div class="contenedorDificultad">
+      </div>
+      <div class="contenedorDificultad">
         <table class="tabla-competidor">
-            <thead>
-                <tr>
-                    <th>Posición</th>
-                    <th>Nombre</th>
-                    <th>Puntuación Ultimo Salto</th>
-                    <th>Acumulado</th>
-                </tr>
-            </thead>
-            <tbody id="lastScoreTableBody">
-
-            </tbody>
+          <thead>
+            <tr>
+              <th>Posición</th>
+              <th>Nombre</th>
+              <th>Puntuación Ultimo Salto</th>
+              <th>Acumulado</th>
+            </tr>
+          </thead>
+          <tbody id="lastScoreTableBody"></tbody>
         </table>
-    </div>
-
+      </div>
+    </main>
     <script src="js/VentanaMejoresPuntuaciones.js"></script>
-</body>
-
+  </body>
 </html>
