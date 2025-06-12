@@ -1,9 +1,7 @@
 .container {
   color: white;
-  width: 98vw;
   max-width: none;
   margin: 0 auto;
-  min-height: 100vh;
 }
 
 .content {
