@@ -116,3 +116,21 @@ btnDescalificar.addEventListener("click", async () => {
     .then(data => console.log("Puntuación registrada (descalificado):", data))
     .catch(err => console.error("Error:", err));
 });
+
+
+document.getElementById("username").textContent = "Juez María";
+document.getElementById("role").textContent = "Juez Principal";
+
+const participants = ["Juan Pérez", "Laura Sánchez", "Carlos Ruiz"];
+const list = document.getElementById("participantList");
+
+participants.forEach(name => {
+  const row = document.createElement("tr");
+  const cell = document.createElement("td");
+  cell.textContent = name;
+  row.appendChild(cell);
+  list.appendChild(row);
+});
+
+document.getElementById("numsalto").textContent = "Salto #3";
+document.getElementById("dificultadsalto").textContent = "2.5";

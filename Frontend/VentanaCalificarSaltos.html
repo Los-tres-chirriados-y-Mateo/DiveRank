@@ -29,57 +29,52 @@
     </header>
 
     <main class="container">
-        <div class="Left-Panel">
-          <div calss="participants">
-            <table class="participantList">
-              <thead>
-                <tr>
-                  Participantes
-                </tr>
-              </thead>
-              <tbody id="participantList"></tbody>
-            </table>
-          </div>
+      <div class="left-panel">
+        <table>
+          <thead class="thead">
+            <tr>
+              Participantes
+            </tr>
+          </thead>
+          <tbody id="participantList"></tbody>
+        </table>
+      </div>
 
-          <!--<aside class="participants">
-            <h2>Participantes</h2>
-            <ul class="participantList" id="participantList"></ul>
-          </aside>-->
-          
-          <main class="main-content">
-            <div class="info-row">
-              <div class="info-block">
-                <div class="info-label">Salto</div>
-                <div class="info-value" id="numsalto"></div>
-              </div>
-              <div class="info-block">
-                <div class="info-label">Dificultad</div>
-                <div class="info-value" id="dificultadsalto"></div>
-              </div>
-            </div>
-            <div class="score-section">
-              <label class="score-label">Inserte una calificación :</label>
-              <input type="number" id="ratingInput" name="rating" min="0" max="10" step="0.5" class="score-input" />
-              <div class="score-warning">
-                <span class="warning-icon">&#9888;</span>
-                Calificación de 0 a 10.
-              </div>
-              <button id="SubmitRating" type="button" class="submit-btn">
-                Enviar calificación
-              </button>
-            </div>
-          </main>
-          <aside class="right-panel">
-            <button class="disqualify-btn" id="SubmitDisqualify">
-              Descalificar salto
-            </button>
-            <div class="disqualify-note">
-              Despues de pasado un minuto del pitazo inicial se debe descalificar el salto
-            </div>
-          </aside>
-        </div>  
+      <div class="main-content">
+        <div class="info-row">
+          <div class="info-block">
+            <div class="info-label">Salto</div>
+            <div class="info-value" id="numsalto"></div>
+          </div>
+          <div class="info-block">
+            <div class="info-label">Dificultad</div>
+            <div class="info-value" id="dificultadsalto"></div>
+          </div>
+        </div>
+        <div class="score-section">
+          <label class="score-label">Inserte una calificación :</label>
+          <input type="number" id="ratingInput" name="rating" min="0" max="10" step="0.5" class="score-input" />
+          <div class="score-warning">
+            <span class="warning-icon">&#9888;</span>
+            Calificación de 0 a 10.
+          </div>
+          <button id="SubmitRating" type="button" class="submit-btn">
+            Enviar calificación
+          </button>
+        </div>
+      </div>
+
+      <div class="right-panel">
+        <button class="disqualify-btn" id="SubmitDisqualify">
+          Descalificar salto
+        </button>
+        <div class="disqualify-note">
+          Despues de pasado un minuto del pitazo inicial se debe descalificar el salto
+        </div>
+      </div>
     </main>
 
     <script src="js/VentanaCalificarSaltos.js"></script>
+
   </body>
 </html>
