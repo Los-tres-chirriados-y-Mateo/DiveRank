@@ -5,45 +5,75 @@
   gap: 2rem;
 }
 
-/*Left Panel*/
-.left-panel{
-  width: 200px;
+/*Panel Izquierdo*/
+.left-panel {
+  width: 250px;
   background-color: #065a84;
   border-radius: 8px;
   overflow: hidden;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: white;
 }
 
-.left-panel table{
+.left-panel table {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.left-panel th, .left-panel td {
+  padding: 0;
+  margin: 0;
   text-align: center;
   width: 100%;
-  color: black;
 }
 
-.thead{
-  text-align: center;
-}
-
-.left-panel table tr{
-  color: white;
+.left-panel thead th {
+  background-color: #065a84;
+  font-size: 1.2rem;
   font-weight: bold;
-  text-align: center;
+  color: white;
   height: 40px;
 }
 
-.left-panel tbody tr{
+.left-panel tbody {
+  display: block;
+  height: 300px;
+  overflow-y: auto;
+  width: 100%;
+  scrollbar-width: none;
+}
+
+.left-panel thead, .left-panel tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.left-panel tbody tr {
   text-align: center;
-  height: 40px;
+  height: 60px;
   cursor: pointer;
+  color: white;
+  font-weight: normal;
+  font-size: 1rem;
+  vertical-align: middle;
 }
 
 .left-panel tbody tr:hover {
   background-color: #d4f0f7;
+  color: black;
 }
 
 .left-panel tbody tr.selected {
   background-color: #083d66;
-  color: white;
+  color: #1ec5f3;
 }
 
 /*Main Content*/
@@ -51,31 +81,56 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  text-align: center;
 }
 
 .info-row{
   display: flex;
   justify-content: space-evenly;
   margin-bottom: 2rem;
+  gap: 2rem;
 }
 
 .info-block {
   background-color: #065a84;
-  padding: 0.8rem 1.5rem;
+  padding: 32px 40px;
   border-radius: 20px;
   text-align: center;
   min-width: 160px;
+  max-width: 200px;
+  width: 200px;
+  height: 120px;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0;
 }
 
 .info-label {
-  font-size: 0.9rem;
-  color: #ccc;
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: bold;
 }
 
 .info-value {
+  
   font-size: 1.2rem;
-  font-weight: bold;
+  font-weight: normal;
+  margin-top: 0.5rem;
+  color: #fff;
+  background: none;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  overflow: hidden;
+  flex:1;
+  display: flex;
+  align-items: center;
 }
 
 .score-section {
@@ -130,18 +185,23 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .disqualify-btn {
   background-color: #083d66;
   color: white;
-  padding: 1rem 2rem;
+  padding: 0.7rem 2rem;
   font-size: 1rem;
-  border-radius: 35px;
+  border-radius: 30px;
   border: none;
   cursor: pointer;
   transition: 0.3s ease;
   margin-bottom: 1rem;
+  width: auto;
+  min-width: 180px;
+  text-align: center;
 }
 
 .disqualify-btn:hover {

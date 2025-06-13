@@ -121,21 +121,3 @@ btnDescalificar.addEventListener("click", async () => {
 });
 
 
-// Prueba de css
-
-document.getElementById("username").textContent = "Juez María";
-document.getElementById("role").textContent = "Juez Principal";
-
-const participants = ["Juan Pérez", "Laura Sánchez", "Carlos Ruiz"];
-const list = document.getElementById("participantList");
-
-participants.forEach(name => {
-  const row = document.createElement("tr");
-  const cell = document.createElement("td");
-  cell.textContent = name;
-  row.appendChild(cell);
-  list.appendChild(row);
-});
-
-document.getElementById("numsalto").textContent = "Salto #3";
-document.getElementById("dificultadsalto").textContent = "2.5";
