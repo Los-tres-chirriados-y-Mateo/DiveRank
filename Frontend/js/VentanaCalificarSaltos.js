@@ -86,7 +86,10 @@ btnCalificar.addEventListener("click", async () => {
         if (!res.ok) throw new Error("Error registrando puntuación");
         return res.json();
     })
-    .then(data => console.log("Puntuación registrada:", data))
+    .then(data => {
+        console.log("Puntuación registrada:", data);
+        document.getElementById("ratingInput").value = "";
+    })
     .catch(err => console.error("Error:", err));
 });
 
@@ -117,6 +120,8 @@ btnDescalificar.addEventListener("click", async () => {
     .catch(err => console.error("Error:", err));
 });
 
+
+// Prueba de css
 
 document.getElementById("username").textContent = "Juez María";
 document.getElementById("role").textContent = "Juez Principal";
