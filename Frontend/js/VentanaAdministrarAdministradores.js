@@ -84,13 +84,16 @@ function generarCredencial(longitud = 10) {
   return credencial;
 }
 
+modal.style.display = "none";
+modalcreado.style.display = "none";
 
 btnAbrirModal.addEventListener("click",function(){
-    modal.showModal();
+    modal.style.display= "flex";
 })
 
 
-btnCrear.addEventListener("click", function () {
+btnCrear.addEventListener("click", function (e) {
+    e.preventDefault();
     const credencial = generarCredencial();
     fetch('http://127.0.0.1:8000/crear_administrador/',{
         method: "POST",
@@ -116,12 +119,18 @@ btnCrear.addEventListener("click", function () {
             }
           actualizarTablaAdministradores();
     })
-  const nombre = document.querySelector("#nombrecompleto").value;
   
   document.getElementById("nombrecompleto").value = "";
 
 });
     
+
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Escape"){
+    modal.style.display = "none";
+    modalcreado.style.display = "none";
+  }
+})
 
 // Aquí se cargan los administradores
 

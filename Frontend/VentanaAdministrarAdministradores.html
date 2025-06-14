@@ -48,25 +48,23 @@
       </div>
     </main>
 
-    <dialog class="modal" id="modal">
-      <h2>Crear administrador nuevo</h2>
+    <div class="modal" id="modal">
+      <h2>Crear Administrador Nuevo</h2>
       <form id="dialog" method="dialog">
-        <h1 class="subtitulo1">Nombre:</h1>
         <label class="nombrecompleto">
-          <input id="nombrecompleto" type="text"/>
+          Nombre:
+          <input id="nombrecompleto" type="text" required />
         </label>
-      </form>
-      <label>
         <button class="crear" id="crear" type="submit">Crear</button>
-      </label>
-    </dialog>
+      </form>
+    </div>
 
-    <dialog class="modalcreado" id="modalcreado">
+    <div class="modalcreado" id="modalcreado">
       <h2>¡El usuario fue creado de manera exitosa!</h2>
       <h2>La credencial generada es: <span id="credencial"></span></h2>
       <h4>No olvides compartirla con el usuario</h4>
       <h5>Precione esc para salir</h5>
-    </dialog>
+    </div>
 
     <script src="js/VentanaAdministrarAdministradores.js"></script>
   </body>
