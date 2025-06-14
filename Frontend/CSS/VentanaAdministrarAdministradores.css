@@ -1,13 +1,137 @@
+.container {
+  margin-top: 15px;
+  display: flex;
+  padding: 1rem;
+  gap: 2rem;
+  flex-direction: column; /* Añadido para apilar hijos verticalmente */
+  align-items: center; /* Centra los hijos horizontalmente */
+  min-width: none;
+  min-height: 500px;
+}
 
+.organizador-container {
+  background: #f3f4f6;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  width: 600px;
+  max-width: 100%;
+  height: 350px;
 
-main {
+  margin-top: 15px;
+  gap: 2rem;
+
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.organizador-container table {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.organizador-container th,
+.organizador-container td {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  width: 100%;
+}
+
+.organizador-container thead th {
+  background-color: #065a84;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  height: 40px;
+}
+
+.organizador-container tbody {
+  display: block;
+  height: 300px;
+  overflow-y: auto;
+  width: 100%;
+  scrollbar-width: none;
+}
+
+.organizador-container thead,
+.organizador-container tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.organizador-container tbody tr {
+  text-align: center;
+  height: 60px;
+  cursor: pointer;
+  color: white;
+  font-weight: normal;
+  font-size: 1rem;
+  vertical-align: middle;
+}
+
+.organizador-container tbody tr:hover {
+  background-color: #d4f0f7;
+  color: black;
+}
+
+.organizador-container tbody tr.selected {
+  background-color: #083d66;
+  color: #1ec5f3;
+}
+
+.titleAdmin th {
+    background: #1e3a8a;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding: 1.7rem;
+    border-radius: 1rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    font-size: 1.7rem;
+    width: 170px;
+    height: 5px;
+    margin-left: 87px;
+    margin-top: 10px;
+}
+
+.btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem; /* reducido de 1rem a 0.5rem */
+  margin-top: 0.5rem; /* reducido de 2rem a 1rem */
+}
+
+.btn-crear {
+  background-color: #083d66;
+  color: white;
+  padding: 0.7rem 2rem;
+  font-size: 1rem;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn-crear:hover {
+  background-color: #021c30;
+}
+
+/*main {
   display: flex;
   justify-content: center; 
   gap: 2rem; 
   margin-top: 50px; 
   position: relative;
 }
-
 
 .organizador-container {
   position: relative;
@@ -20,7 +144,6 @@ main {
   max-width: 100%;
   height: 350px;
 }
-
 
 .jueces-container {
   background: #f3f4f6;
@@ -271,5 +394,4 @@ main {
   max-height: 200px;
   overflow-y: auto;
   overflow-x: hidden;
-}
-
+}*/

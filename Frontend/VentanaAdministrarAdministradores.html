@@ -28,33 +28,37 @@
       </div>
     </header>
 
-    <main>
+    <main class="container">
       <div class="organizador-container" id="organizador-container">
-        <h2 class="TituloAdmin">Administradores</h2>
-
-        <div class="listaOrganizadores">
+        <!--<h2 class="TituloAdmin">Administradores</h2>-->
           <table id="tablaOrganizadores">
+            <thead>
+              <tr class="TitleAdmin">
+                <th colspan="100%">Administradores</th>
+              </tr>
+            </thead>
             <tbody id="cuerpoTablaOrganizadores"></tbody>
           </table>
-        </div>
       </div>
 
-      <button id="openModalBtn" class="btn-crear">
-        Crear un nuevo administrador
-      </button>
+      <div class="btn">
+        <button id="openModalBtn" class="btn-crear">
+          Crear un nuevo administrador
+        </button>
+      </div>
     </main>
 
     <dialog class="modal" id="modal">
       <h2>Crear administrador nuevo</h2>
       <form id="dialog" method="dialog">
         <h1 class="subtitulo1">Nombre:</h1>
-        <label class="nombrecompleto"
-          ><input id="nombrecompleto" type="text"
-        /></label>
+        <label class="nombrecompleto">
+          <input id="nombrecompleto" type="text"/>
+        </label>
       </form>
       <label>
-        <button class="crear" id="crear" type="submit">Crear</button></label
-      >
+        <button class="crear" id="crear" type="submit">Crear</button>
+      </label>
     </dialog>
 
     <dialog class="modalcreado" id="modalcreado">
