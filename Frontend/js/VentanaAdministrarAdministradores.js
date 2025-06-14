@@ -2,6 +2,7 @@ const btnAbrirModal = document.querySelector("#openModalBtn");
 const modal = document.querySelector("#modal");
 const btnCrear = document.querySelector("#crear");
 const modalcreado = document.querySelector("#modalcreado");
+const overlay = document.getElementById("overlay")
 const password = localStorage.getItem("admin_password");
 
  
@@ -89,6 +90,7 @@ modalcreado.style.display = "none";
 
 btnAbrirModal.addEventListener("click",function(){
     modal.style.display= "flex";
+    overlay.style.display = "block";
 })
 
 
@@ -112,6 +114,7 @@ btnCrear.addEventListener("click", function (e) {
 
             modal.close();
             modalcreado.showModal(); 
+            overlay.style.display = "block";
             document.querySelector("#credencial").textContent = "La credencial generada es: " + credencial;
         }
          else {
@@ -129,6 +132,7 @@ document.addEventListener("keydown", function(e) {
   if (e.key === "Escape"){
     modal.style.display = "none";
     modalcreado.style.display = "none";
+    overlay.style.display = "none";
   }
 })
 
