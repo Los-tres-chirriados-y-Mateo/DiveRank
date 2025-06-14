@@ -148,6 +148,44 @@
   gap: 1rem;
 }
 
+.modalcreado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: #f0f8ff;
+  border: 2px solid #1ec5f3;
+  box-shadow: 0 8px 32px rgba(30,197,243,0.15);
+  padding: 2.5rem 2rem;
+}
+
+.modalcreado h2 {
+  color: #083d66;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.modalcreado #credencial {
+  display: inline-block;
+  background: #1ec5f3;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.3rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 0.5rem;
+  margin: 0.5rem 0;
+  letter-spacing: 2px;
+  box-shadow: 0 2px 8px rgba(30,197,243,0.12);
+}
+
+.modalcreado h4, .modalcreado h5 {
+  color: #2563eb;
+  margin: 0.2rem 0;
+  text-align: center;
+  font-weight: 500;
+}
+
 .modal form {
   display: flex;
   flex-direction: column;

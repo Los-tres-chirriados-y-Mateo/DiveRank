@@ -112,8 +112,8 @@ btnCrear.addEventListener("click", function (e) {
             const data = await res.json();
         if (res.ok) {
 
-            modal.close();
-            modalcreado.showModal(); 
+            modal.style.display = "none"; // <-- también cambia esto si usabas modal.close()
+            modalcreado.style.display = "flex"; 
             overlay.style.display = "block";
             document.querySelector("#credencial").textContent = "La credencial generada es: " + credencial;
         }
