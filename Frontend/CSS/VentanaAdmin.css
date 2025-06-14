@@ -1,271 +1,272 @@
-main {
+.container {
+  margin-top: 15px;
   display: flex;
-  justify-content: center; 
-  gap: 2rem; 
-  margin-top: 50px; 
-  position: relative;
-}
-
-.organizador-container {
-  position: relative;
-  display: flex;
-  background: #f3f4f6;
   padding: 1rem;
-  border-radius: 1rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  width: 400px;
-  max-width: 100%;
-  height: 350px;
+  gap: 2rem;
+  flex-direction: column;
+  align-items: center; 
+  min-width: none;
+  min-height: 500px;
 }
 
+
+@media (max-width: 1200px) {
+  .tables {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.tables {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  justify-content: center;
+  width: auto;
+}
+
+.organizador-container,
 .jueces-container {
   background: #f3f4f6;
-  padding: 1rem;
+  padding: 2rem;
   border-radius: 1rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  width: 400px;
+  width: 600px;
   max-width: 100%;
   height: 350px;
-}
-  
-  .Titulo2 {
-    background: #1e3a8a;
-    color: white;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    padding: 2rem;
-    border-radius: 2rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    font-size: 2rem;
-    margin-left: 17%;
-    width: 170px;
-    height: 5px;
-  }
-  
-  .organizador-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #3b82f6;
-    color: white;
-    margin-top: 30px;
-    padding: 2.5rem 2.5rem;
-    border-radius: 1.5rem;
-    margin-bottom: 1rem;
-    font-size: 2rem;
-  }
-  
-  .acciones {
-    display: flex;
-    gap: 0.4rem;
-    margin-left: 1rem;
-  }
-  
 
-  .jueces-title {
-    background: #1e3a8a;
-    color: white;
-    text-align: center;
-    padding: 2rem;
-    border-radius: 2rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    font-size: 2.5rem;
-    margin-top: 20px;
-    margin-right: 150px;
-    margin-left: 150px;
+  margin-top: 15px;
+  gap: 2rem;
 
-  }
-  
-  .jueces-item {
-    background: #3b82f6 !important;
-  }
-  .jueces-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #3b82f6;
-    color: white;
-    margin-top: 30px;
-    padding: 2.5rem 2.5rem;
-    border-radius: 1.5rem;
-    margin-bottom: 1rem;
-    font-size: 2rem;
-    
-  }
-  
-  .jueces-item .acciones {
-    display: flex;
-    gap: 0.4rem;
-    margin-left: 1rem;
-  }
-
-  .btn-iconJ {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.5rem;
-  }
-  
-  .btn-iconJ img {
-    width: 60px;
-    height: 60px;
-    display: block;
-  } 
-  
-  .btn-crear {
-    position: absolute;
-    background-color: #2563eb;
-    color: white;
-    border-radius: 2rem;
-    font-size: 1rem;
-    cursor: pointer;
-    width: 200px;
-    height: 50px;
-    top: 400px;
-    left: 580px;
-  }
-
-
-
-  .modal-content {
-    background: white;
-    padding: 5rem;
-    border-radius: 1rem;
-    width: 350px;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-
-  .modal-content input,
-  .modal-content select,
-  .modal-content button {
-    padding: 2rem;
-    font-size: 1rem;
-    border-radius: 8px;
-    border: 1px solid #f2d6d6;
-  }
-
-  .modal-content .close {
-    align-self: flex-end;
-    font-size: 1.5rem;
-    cursor: pointer;
-  }
- 
-  #modal::backdrop{
-    background-color:rgba(0,0, 0, .55) ;
-  }
-
-
-  .modal{
-    min-width: 340px;
-    max-width: 340px;
-    height: 350px;
-    align-items: center;
-    justify-content: center;
-    align-items: center;
-    background-color: #f7bfd8;
-  }
-
-.nombrecompleto{
-  position: absolute;
-  top: 100px;
-  width: 300px;
-  padding: 1rem;
-  border-radius: 8px;
-  font-size: 1rem;
-  text-align: center;
-  }
-
-
-.cedula{
-  position: absolute;
-  top: 150px;
-  width: 300px;
-  padding: 1rem;
-  border-radius: 8px;
-  font-size: 1rem;
-  text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   text-align: center;
 }
 
-.rol{
-  position: absolute;
-  top: 200px;
-  width: 300px;
-  padding: 1rem;
-  border-radius: 8px;
+.organizador-container table,
+.jueces-container table {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.organizador-container th,
+.organizador-container td,
+.jueces-container th,
+.jueces-container td {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  width: 100%;
+}
+
+.organizador-container thead th,
+.jueces-container thead th {
+  background-color: #065a84;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  height: 40px;
+}
+
+.organizador-container tbody,
+.jueces-container tbody {
+  display: block;
+  height: 300px;
+  overflow-y: auto;
+  width: 100%;
+  scrollbar-width: none;
+}
+
+.organizador-container thead,
+.organizador-container tbody tr,
+.jueces-container thead,
+.jueces-container tbody tr{
+  
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.organizador-container tbody tr,
+.jueces-container tbody tr {
+  text-align: center;
+  height: 60px;
+  cursor: pointer;
+  color: balck;
+  font-weight: normal;
   font-size: 1rem;
+  vertical-align: middle;
+}
+
+.organizador-container tbody tr:hover,
+.jueces-container tbody tr:hover {
+  background-color: #d4f0f7;
+  color: black;
+}
+
+.organizador-container tbody tr.selected,
+.jueces-container tbody tr.selected {
+  background-color: #083d66;
+  color: #1ec5f3;
+}
+
+.titleAdmin th {
+  background: #1e3a8a;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  padding: 1.7rem;
+  border-radius: 1rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  font-size: 1.7rem;
+  width: 170px;
+  height: 5px;
+  margin-left: 87px;
+  margin-top: 10px;
+}
+
+.btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem; 
+}
+
+.btn-crear {
+  background-color: #083d66;
+  color: white;
+  padding: 0.7rem 2rem;
+  font-size: 1rem;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn-crear:hover {
+  background-color: #021c30;
+}
+
+#modal,
+#modalcreado {
+  display: none;
+}
+
+.modal, .modalcreado {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  max-width: 90%;
+  height: auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modalcreado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: #f0f8ff;
+  border: 2px solid #1ec5f3;
+  box-shadow: 0 8px 32px rgba(30,197,243,0.15);
+  padding: 2.5rem 2rem;
+}
+
+.modalcreado h2 {
+  color: #083d66;
+  margin-bottom: 0.5rem;
   text-align: center;
 }
 
-.crear{
-  position: absolute;
-  top: 300px;
-  width: 80px;
-  padding: 1rem;
-  border-radius: 8px;
+.modalcreado #credencial {
+  display: inline-block;
+  background: #1ec5f3;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.3rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 0.5rem;
+  margin: 0.5rem 0;
+  letter-spacing: 2px;
+  box-shadow: 0 2px 8px rgba(30,197,243,0.12);
+}
+
+.modalcreado h4, .modalcreado h5 {
+  color: #2563eb;
+  margin: 0.2rem 0;
+  text-align: center;
+  font-weight: 500;
+}
+
+.modal form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.modal h2 {
+  margin: 0 0 1rem 0;
+  text-align: center;
+}
+
+.modal label,
+.modal input {
+  display: block;
+  width: 100%;
+}
+
+.modal input {
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  margin-top: 0.25rem;
+}
+
+.crear {
+  align-self: center;
+  align-items: center;
+  margin-top: 1rem;
+  padding: 0.75rem 2rem;
   font-size: 1rem;
   background-color: #2563eb;
   color: white;
+  border: none;
+  border-radius: 0.5rem;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.subtitulo1{
-  width: 100px;
-  font-size: 1rem;
-  margin-left: -15px;
-  margin-top: 48px;
-  text-align: center;
+.crear:hover {
+  background-color: #1d4ed8;
 }
 
-.subtitulo2{
-  width: 100px;
-  font-size: 1rem;
-  margin-left: -15px;
-  margin-top: 30px;
-  text-align: center;
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 999;
 }
-
-.subtitulo3{
-  width: 100px;
-  font-size: 1rem;
-  margin-left: -15px;
-  margin-top: 30px;
-  text-align: center;
-}
-
-.crear{
-    width: 100px;
-    font-size: 1rem;
-    margin-left: 115px;
-    margin-top: 15px;
-  }
-
-  .modalcreado{
-    text-align: center;
-  }
-
-.listaOrganizadores{
-  position: absolute;
-  top: 120px;
-  border-radius: 8px;
-  font-size: 1rem;
-  max-height: 200px;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-.listaJueces{
-  position: absolute;
-  top: 120px;
-  border-radius: 8px;
-  font-size: 1rem;
-  max-height: 200px;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-

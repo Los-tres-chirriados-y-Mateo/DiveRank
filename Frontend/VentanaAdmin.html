@@ -24,66 +24,77 @@
       </div>
 
       <div class="home-icon">
-        <a href="login.html" class="home-icon" role="button" aria-label="Ir al inicio">
+        <a
+          href="login.html"
+          class="home-icon"
+          role="button"
+          aria-label="Ir al inicio"
+        >
           <img src="Images/home.png" alt="Inicio" />
         </a>
       </div>
     </header>
-    
-    <main>
-      <div class="organizador-container" id="organizador-container">
-        <h2 class="Titulo2">Organizadores</h2>
 
-        <div class="listaOrganizadores">
-          <table id="tablaOrganizadores">
+    <main class="container">
+      <div class="tables">
+        <div class="organizador-container" id="organizador-container">
+          <table class="listaOrganizadores">
+            <thead>
+              <tr class="titletable">
+                <th colspan="100%">Organizadores</th>
+              </tr>
+            </thead>
             <tbody id="cuerpoTablaOrganizadores"></tbody>
           </table>
         </div>
-      </div>
-
-      <div class="jueces-container" id="jueces-container">
-        <h2 class="Titulo2">Jueces</h2>
-
-        <div class="listaJueces">
-          <table id="listaJueces">
+        <div class="jueces-container" id="jueces-container">
+          <table class="listaJueces">
+            <thead>
+              <tr class="titletable">
+                <th colspan="100%">Jueces</th>
+              </tr>
+            </thead>
             <tbody id="cuerpoTablaJueces"></tbody>
           </table>
         </div>
       </div>
-      <button id="openModalBtn" class="btn-crear">
-        Crear un nuevo usuario
-      </button>
+
+      <div class="btn">
+        <button id="openModalBtn" class="btn-crear">
+          Crear un nuevo usuario
+        </button>
+      </div>
     </main>
 
-    <dialog class="modal" id="modal">
-      <h2>Crear usuario nuevo</h2>
+    <div class="overlay" id="overlay"></div>
+    <div class="modal" id="modal">
       <form id="dialog" method="dialog">
-        <h1 class="subtitulo1">Nombre:</h1>
-        <label class="nombrecompleto"
-          ><input id="nombrecompleto" type="text"
-        /></label>
-        <h1 class="subtitulo2">Cedula:</h1>
-        <label class="cedula"><input id="cedula" type="text" /></label>
-        <h1 class="subtitulo3">Rol:</h1>
+        <h2>Crear Usuario Nuevo</h2>
+        <label class="nombrecompleto">
+          Nombre:
+          <input id="nombrecompleto" type="text" required />
+        </label>
+        <label class="cedula">
+          Cedula:
+          <input id="cedula" type="text" required />
+        </label>
         <label class="rol">
+          Rol:
           <select id="rolRegistrar">
-            <option value="default"></option>
             <option value="jurado">Juez</option>
             <option value="organizador">Oranizador</option>
           </select>
         </label>
       </form>
-      <label>
-        <button class="crear" id="crear" type="submit">Crear</button></label
-      >
-    </dialog>
+      <button class="crear" id="crear" type="submit">Crear</button>
+    </div>
 
-    <dialog class="modalcreado" id="modalcreado">
+    <div class="modalcreado" id="modalcreado">
       <h2>¡El usuario fue creado de manera exitosa!</h2>
       <h2>La credencial generada es: <span id="credencial"></span></h2>
       <h4>No olvides compartirla con el usuario</h4>
       <h5>Precione esc para salir</h5>
-    </dialog>
+    </div>
 
     <script src="js/VentanaAdmin.js"></script>
   </body>

@@ -2,6 +2,7 @@ const btnAbrirModal = document.querySelector("#openModalBtn");
 const modal = document.querySelector("#modal");
 const btnCrear = document.querySelector("#crear");
 const modalcreado = document.querySelector("#modalcreado");
+const overlay = document.getElementById("overlay")
 const password = localStorage.getItem("admin_password");
 
 
@@ -118,8 +119,12 @@ function generarCredencial(longitud = 10) {
 }
 
 
+modal.style.display = "none";
+modalcreado.style.display = "none";
+
 btnAbrirModal.addEventListener("click",function(){
-    modal.showModal();
+    modal.style.display= "flex";
+    overlay.style.display = "block";
 })
 
 
@@ -152,8 +157,9 @@ btnCrear.addEventListener("click", function () {
             console.log("Respuesta:", data);
           
             if (res.ok) {
-              modal.close();
-              modalcreado.showModal();
+              modal.style.display = "none"; // <-- también cambia esto si usabas modal.close()
+              modalcreado.style.display = "flex"; 
+              overlay.style.display = "block";
               document.querySelector("#credencial").textContent =  credencial;
             } else {
               alert("Error: " + JSON.stringify(data));
@@ -201,6 +207,13 @@ btnCrear.addEventListener("click", function () {
   document.getElementById("cedula").value = "";
 });
     
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Escape"){
+    modal.style.display = "none";
+    modalcreado.style.display = "none";
+    overlay.style.display = "none";
+  }
+})
 
 // Aquí se cargan los organizadores
 
