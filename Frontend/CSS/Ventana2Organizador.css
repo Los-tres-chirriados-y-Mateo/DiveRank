@@ -1,36 +1,38 @@
-.nombre{
-  position: fixed;
+
+
+.contenedorDificultad {
+  position: relative;
+  overflow-y: auto;
+  max-height: 300px;
+  display: flex;
+
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
+
+  
+
+  justify-content: center;
+  margin-top: 2%;
+  margin-left: 20%;
+  margin-right: 20%;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: white;
+}
+
+.nombre {
+  position: relative;
   margin-top: 0%;
   margin-left: -50%;
   min-height: 40px;
   max-width: 100px;
   font-style: oblique;
   font-size: larger;
-  font-family: 'Courier New', Courier, monospace ;
-
 }
 
-.contenedorDificultad{
-    position: relative;
-    overflow-y: auto;
-    max-height: 250px;
-    display: flex;
-    
-    flex-direction: column;
-    align-items: center;
-    margin-top: 40px;
-
-    justify-content: center;
-    margin-top: 2%;
-    margin-left: 20%;
-    margin-right: 20%;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    background-color: white;
-}
-
-.tabla-competidor{
+.tabla-competidor {
   width: 75%;
   border-collapse: collapse;
   margin-top: 0;
@@ -38,8 +40,75 @@
   text-align: center;
 }
 
-.guardar{
+.contenedorDificultad {
+  position: relative;
+  overflow-y: auto;
+  max-height: 300px;
+  display: flex;
+  flex-direction: row; /* Mantén fila para alinear horizontalmente */
+  align-items: center; /* Centra verticalmente nombre y tabla */
+  justify-content: center;
+  margin-top: 2%;
+  margin-left: 20%;
+  margin-right: 20%;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: white;
+  gap: 24px; /* Espacio entre nombre y tabla */
+}
+
+.nombre {
+  position: relative;
+  margin: 0 auto; /* Centra horizontalmente si es necesario */
+  min-height: 20px;
+  max-width:100px;
+  font-style: oblique;
+  font-size: larger;
+  display: flex;
+  align-items: center; /* Centra verticalmente el texto */
+  justify-content: center; /* Centra horizontalmente el texto */
+}
+
+/* ...existing code... */
+.tooltip {
+  position: relative;
+  cursor: pointer;
+}
+
+/* Elimina el position: absolute y usa fixed para el tooltip */
+.tooltip .tooltiptext {
+  display: none;
   position: fixed;
-  margin-top: 0%;
-  margin-left: 70%;
+  background-color: #083d66;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 10px;
+  z-index: 9999;
+  font-size: 0.95em;
+  pointer-events: none;
+}
+
+.tooltip:hover .tooltiptext {
+  display: block;
+}
+.guardar {
+  display: block;
+  margin: 30px auto 0 auto;
+  background-color: #083d66;
+  color: white;
+  padding: 0.7rem 2rem;
+  font-size: 1rem;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+  width: auto;
+  min-width: 180px;
+  text-align: center;
+}
+
+.guardar:hover {
+  background-color: #021c30;
 }

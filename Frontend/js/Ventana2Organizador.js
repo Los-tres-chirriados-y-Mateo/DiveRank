@@ -107,3 +107,20 @@ document.getElementById('guardar').addEventListener('click', () => {
     alert("No se pudo guardar la información");
   });
 });
+
+document.querySelectorAll('.tooltip').forEach(function (el) {
+    el.addEventListener('mousemove', function (e) {
+      const tooltip = el.querySelector('.tooltiptext');
+      if (tooltip) {
+        tooltip.style.left = (e.clientX + 15) + 'px';
+        tooltip.style.top = (e.clientY - 10) + 'px';
+      }
+    });
+    el.addEventListener('mouseleave', function () {
+      const tooltip = el.querySelector('.tooltiptext');
+      if (tooltip) {
+        tooltip.style.left = '-9999px';
+        tooltip.style.top = '-9999px';
+      }
+    });
+  });

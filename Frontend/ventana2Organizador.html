@@ -24,28 +24,36 @@
       </div>
 
       <div class="home-icon">
-        <a href="login.html" class="home-icon" role="button" aria-label="Ir al inicio">
+        <a
+          href="login.html"
+          class="home-icon"
+          role="button"
+          aria-label="Ir al inicio"
+        >
           <img src="Images/home.png" alt="Inicio" />
         </a>
       </div>
     </header>
 
-
     <div class="contenedorDificultad" id="contenedorDificultad">
+      <div class="nombre" id="nombre"></div>
       <table id="tabla-competidor" class="tabla-competidor">
         <thead>
           <tr>
-            <th>N° de salto</th>
+            <th class="tooltip">
+              N° de salto
+              <span class="tooltiptext">
+                Todos los participantes deben realizar 6 saltos
+              </span>
+            </th>
             <th>Nombre de salto</th>
             <th>Dificultad</th>
           </tr>
         </thead>
         <tbody></tbody>
       </table>
-
-      <button class="guardar" id="guardar">Guardar</button>
-      <div class="nombre" id="nombre"></div>
     </div>
+    <button class="guardar" id="guardar">Guardar</button>
+    <script src="js/Ventana2Organizador.js"></script>
   </body>
-  <script src="js/Ventana2Organizador.js"></script>
 </html>
