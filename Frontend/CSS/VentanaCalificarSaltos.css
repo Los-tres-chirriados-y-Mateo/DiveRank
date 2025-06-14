@@ -7,73 +7,45 @@
 
 /*Panel Izquierdo*/
 .left-panel {
-  width: 250px;
   background-color: #065a84;
-  border-radius: 8px;
-  overflow: hidden;
-  padding-top: 10px;
+  border-radius: 20px;
+  text-align: center;
+  min-width: 160px;
+  max-width: 250px;
+  width: 250px;
+  height: 250px;
+  min-height: 120px;
+  max-height: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
+  justify-content: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: auto; /* Centra el panel dentro del contenedor padre */
+}
+
+.left-title {
+  color: #fff;
   font-size: 1.4rem;
   font-weight: bold;
-  color: white;
+  margin-bottom: 0.5rem;
+  margin-top: 6px;
 }
 
-.left-panel table {
-  border-collapse: collapse;
-  width: 100%;
-  table-layout: fixed;
-}
-
-.left-panel th, .left-panel td {
-  padding: 0;
-  margin: 0;
-  text-align: center;
-  width: 100%;
-}
-
-.left-panel thead th {
-  background-color: #065a84;
+.participant-single {
   font-size: 1.2rem;
-  font-weight: bold;
-  color: white;
-  height: 40px;
-}
-
-.left-panel tbody {
-  display: block;
-  height: 300px;
-  overflow-y: auto;
-  width: 100%;
-  scrollbar-width: none;
-}
-
-.left-panel thead, .left-panel tbody tr {
-  display: table;
-  width: 100%;
-  table-layout: fixed;
-}
-
-.left-panel tbody tr {
-  text-align: center;
-  height: 60px;
-  cursor: pointer;
-  color: white;
   font-weight: normal;
-  font-size: 1rem;
-  vertical-align: middle;
-}
-
-.left-panel tbody tr:hover {
-  background-color: #d4f0f7;
-  color: black;
-}
-
-.left-panel tbody tr.selected {
-  background-color: #083d66;
-  color: #1ec5f3;
+  margin-top: 0.5rem;
+  color: #fff;
+  background: none;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  overflow: hidden;
+  flex:1;
+  display: flex;
+  align-items: center;
 }
 
 /*Main Content*/

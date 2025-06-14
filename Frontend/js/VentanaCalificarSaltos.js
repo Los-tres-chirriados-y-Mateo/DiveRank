@@ -120,4 +120,3 @@ btnDescalificar.addEventListener("click", async () => {
     .catch(err => console.error("Error:", err));
 });
 
-
