@@ -103,7 +103,6 @@ function llenarTabla() {
         console.log('Competidor agregado:', data.nombre);
         llenarTabla();
         document.querySelector("#nombre").value="";
-        document.querySelector("#saltos").value="";
     })
     .catch(error => {
         console.error('Error al cargar competidores:', error);
