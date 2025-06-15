@@ -1,6 +1,7 @@
 const credencial = localStorage.getItem("juez_password");
 const btnCalificar = document.querySelector("#SubmitRating");
 const btnDescalificar = document.querySelector("#SubmitDisqualify");
+document.getElementById("ratingInput").focus();
 
 async function idDeportista(deportistaNombre) {
     const res = await fetch(`http://127.0.0.1:8000/id_deportista/${encodeURIComponent(deportistaNombre)}/`);
@@ -91,6 +92,8 @@ btnCalificar.addEventListener("click", async () => {
         document.getElementById("ratingInput").value = "";
     })
     .catch(err => console.error("Error:", err));
+    document.getElementById("ratingInput").value="";
+    document.getElementById("ratingInput").focus();
 });
 
 btnDescalificar.addEventListener("click", async () => {
@@ -118,5 +121,7 @@ btnDescalificar.addEventListener("click", async () => {
     })
     .then(data => console.log("Puntuación registrada (descalificado):", data))
     .catch(err => console.error("Error:", err));
+    document.getElementById("ratingInput").value="";
+    document.getElementById("ratingInput").focus();
 });
 

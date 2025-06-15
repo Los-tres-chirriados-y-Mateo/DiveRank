@@ -5,6 +5,7 @@ const modalcreado = document.querySelector("#modalcreado");
 const overlay = document.getElementById("overlay")
 const password = localStorage.getItem("admin_password");
 
+
  
 actualizarTablaAdministradores();
 
@@ -91,6 +92,7 @@ modalcreado.style.display = "none";
 btnAbrirModal.addEventListener("click",function(){
     modal.style.display= "flex";
     overlay.style.display = "block";
+    document.getElementById("nombrecompleto").focus();
 })
 
 
@@ -115,7 +117,7 @@ btnCrear.addEventListener("click", function (e) {
             modal.style.display = "none"; // <-- también cambia esto si usabas modal.close()
             modalcreado.style.display = "flex"; 
             overlay.style.display = "block";
-            document.querySelector("#credencial").textContent = "La credencial generada es: " + credencial;
+            document.querySelector("#credencial").textContent = credencial;
         }
          else {
               alert("Error: " + JSON.stringify(data));

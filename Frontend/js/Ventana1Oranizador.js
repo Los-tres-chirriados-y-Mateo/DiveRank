@@ -52,9 +52,6 @@ function llenarTabla() {
         const celdaNombre = document.createElement('td');
         celdaNombre.textContent = org.nombre;
 
-        num_saltos = document.createElement('td');
-        num_saltos.textContent = org.num_saltos;
-
         btnDificultad = document.createElement('td');
         const btnVer = document.createElement('button');
         btnVer.textContent = 'Definir dificultad';
@@ -68,7 +65,6 @@ function llenarTabla() {
 
         fila.appendChild(orden);
         fila.appendChild(celdaNombre);
-        fila.appendChild(num_saltos);
         fila.appendChild(btnDificultad);
         tbody.appendChild(fila);
       });
@@ -78,9 +74,9 @@ function llenarTabla() {
     });
   }
 
- function agregarCompetidor(nombre, saltos) {
+ function agregarCompetidor() {
     nombre = document.querySelector("#nombre").value;
-    saltos = document.querySelector("#saltos").value;
+    saltos = 6;
 
     fetch('http://127.0.0.1:8000/crear_deportistas/', {
       method: 'POST',

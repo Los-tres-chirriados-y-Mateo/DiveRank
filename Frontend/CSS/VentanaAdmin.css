@@ -270,3 +270,10 @@
   background: rgba(0, 0, 0, 0.6);
   z-index: 999;
 }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  height: 100%;
+}

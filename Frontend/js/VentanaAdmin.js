@@ -6,6 +6,7 @@ const overlay = document.getElementById("overlay")
 const password = localStorage.getItem("admin_password");
 
 
+
 // Iniciamos cargando las tablas
 actualizarTablaJueces();
 actualizarTablaOrganizadores();
@@ -125,6 +126,7 @@ modalcreado.style.display = "none";
 btnAbrirModal.addEventListener("click",function(){
     modal.style.display= "flex";
     overlay.style.display = "block";
+    document.getElementById("nombrecompleto").focus();
 })
 
 
@@ -157,14 +159,14 @@ btnCrear.addEventListener("click", function () {
             console.log("Respuesta:", data);
           
             if (res.ok) {
-              modal.style.display = "none"; // <-- también cambia esto si usabas modal.close()
+              modal.style.display = "none"; 
               modalcreado.style.display = "flex"; 
               overlay.style.display = "block";
               document.querySelector("#credencial").textContent =  credencial;
             } else {
               alert("Error: " + JSON.stringify(data));
             }
-          actualizarTablaOrganizadores(); // Actualiza la tabla de organizadores después de crear
+          actualizarTablaOrganizadores();
 
           });
         
@@ -190,8 +192,9 @@ btnCrear.addEventListener("click", function () {
             console.log("Respuesta:", data);
           
             if (res.ok) {
-              modal.close();
-              modalcreado.showModal();
+              modal.style.display = "none"; 
+              modalcreado.style.display = "flex"; 
+              overlay.style.display = "block";
               document.querySelector("#credencial").textContent =  credencial;
             } else {
               alert("Error: " + JSON.stringify(data));
@@ -270,42 +273,42 @@ function actualizarTablaOrganizadores() {
     fetch('http://127.0.0.1:8000/listar_jueces/')
       .then(res => res.json())
       .then(data => {
-        const cuerpoTablaJueces = document.getElementById('listaJueces');
+        const cuerpoTablaJueces = document.getElementById('cuerpoTablaJueces');
         cuerpoTablaJueces.innerHTML = ''; // Limpiar tabla
   
         data.forEach(org => {
-          const fila = document.createElement('tr');
-          
-          const celdaNombre = document.createElement('td');
-          celdaNombre.textContent = org.nombre;
-  
-          const celdaVer = document.createElement('td');
-          const btnVer = document.createElement('button');
-          btnVer.textContent = 'Ver Credencial';
-          btnVer.addEventListener('click', () => {
-            console.log('Ver Credencial', org.nombre);
-            
-            verCredencialJuez(org.nombre);
-            
-          });
-          celdaVer.appendChild(btnVer);
-  
-          const celdaEliminar = document.createElement('td');
-          const btnEliminar = document.createElement('button');
-          btnEliminar.textContent = 'Eliminar';
-          btnEliminar.addEventListener('click', () => {
-            console.log('Eliminar', org.nombre);
-            eliminarJuez(org.nombre); // Asegúrate de tener esta función definida
-          });
-          celdaEliminar.appendChild(btnEliminar);
-  
-          fila.appendChild(celdaNombre);
-          fila.appendChild(celdaVer);
-          fila.appendChild(celdaEliminar);
-  
-          cuerpoTablaJueces.appendChild(fila);
+        const fila = document.createElement('tr');
+
+        const celdaNombre = document.createElement('td');
+        celdaNombre.textContent = org.nombre;
+
+        const celdaVer = document.createElement('td');
+        const btnVer = document.createElement('button');
+        btnVer.textContent = 'Ver Credencial';
+        btnVer.addEventListener('click', () => {
+          console.log('Ver Credencial', org.nombre);
+
+          verCredencialJuez(org.nombre);
+
         });
-      })
-      .catch(err => console.error('Error cargando jueces:', err));
-  }
+        celdaVer.appendChild(btnVer);
+
+        const celdaEliminar = document.createElement('td');
+        const btnEliminar = document.createElement('button');
+        btnEliminar.textContent = 'Eliminar';
+        btnEliminar.addEventListener('click', () => {
+          console.log('Eliminar', org.nombre);
+          eliminarJuez(org.nombre); 
+        });
+        celdaEliminar.appendChild(btnEliminar);
+
+        fila.appendChild(celdaNombre);
+        fila.appendChild(celdaVer);
+        fila.appendChild(celdaEliminar);
+
+        cuerpoTablaJueces.appendChild(fila);
+      });
+    })
+    .catch(err => console.error('Error cargando organizadores:', err));
+}
   

@@ -94,11 +94,12 @@
 }
 
 .numero-saltos {
-  width: 150px;
+  width: 300px;
   font-size: 0.8rem;
   font-weight: bold;
   margin-left: 500px;
   margin-top: -29px;
+  text-align: center;
 }
 
 .saltos-input {

@@ -10,11 +10,9 @@
   background-color: #065a84;
   border-radius: 20px;
   text-align: center;
-  min-width: 160px;
-  max-width: 250px;
-  width: 250px;
-  height: 250px;
-  min-height: 120px;
+  min-width: 250px;
+  max-width: 350px;
+  min-height: 100px;
   max-height: 200px;
   display: flex;
   flex-direction: column;
@@ -165,7 +163,7 @@
 }
 
 .disqualify-btn {
-  background-color: #083d66;
+  background-color: red;
   color: white;
   padding: 0.7rem 2rem;
   font-size: 1rem;
@@ -177,6 +175,7 @@
   width: auto;
   min-width: 180px;
   text-align: center;
+  margin: auto;
 }
 
 .disqualify-btn:hover {
@@ -188,4 +187,11 @@
   text-align: center;
   color: black;
   padding: 0 10px;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  height: 100%;
 }
